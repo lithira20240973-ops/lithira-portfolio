@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Hero } from "@/components/Hero";
 import { Preloader } from "@/components/Preloader";
 import { About } from "@/components/About";
+import { Projects } from "@/components/Projects";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
@@ -17,7 +18,7 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      <motion.main 
+      <motion.main
         className="relative"
         initial={{ opacity: 0 }}
         animate={{ opacity: loading ? 0 : 1 }}
@@ -26,17 +27,19 @@ export default function Home() {
         <div className="sticky top-0 h-screen w-full z-0 overflow-hidden">
           <Hero />
         </div>
-        
+
         {/* Subsequent sections cover the Hero */}
         <div className="relative z-10">
           <About />
+          <Projects />
 
-          <section id="projects" className="min-h-screen w-full flex items-center justify-center bg-[#0d0d0d] border-t border-white/5">
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-black/20">Projects section</h2>
-          </section>
-
-          <section id="contact" className="min-h-[60vh] w-full flex items-center justify-center border-t border-black/10 bg-[#111111] text-white">
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white/20">Contact section</h2>
+          <section
+            id="contact"
+            className="min-h-[70vh] w-full flex items-center justify-center bg-[#0a0a0a] border-t border-white/5"
+          >
+            <h2 className="text-4xl md:text-6xl font-light tracking-tighter text-white/10">
+              Contact section
+            </h2>
           </section>
         </div>
       </motion.main>

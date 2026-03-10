@@ -90,17 +90,11 @@ export const About = () => {
               whileHover={{ scale: 1.04, rotate: 1.5 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
-              {/* Accent tint on hover */}
-              <div
-                className="absolute inset-0 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ background: "rgba(255,77,45,0.12)" }}
-              />
-
               <Image
                 src="/images/infoimage.png"
                 alt="Lithira Kalubowila"
                 fill
-                className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500"
+                className="object-cover object-top"
                 priority
               />
             </motion.div>
