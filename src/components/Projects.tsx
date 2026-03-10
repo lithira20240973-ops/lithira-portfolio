@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -14,7 +15,11 @@ const PROJECTS = [
     accent: "#00B4D8",
     bg: "linear-gradient(145deg, #020c18 0%, #061a2e 50%, #03101e 100%)",
     glow: "radial-gradient(ellipse 70% 55% at 50% 42%, rgba(0,180,216,0.22) 0%, transparent 100%)",
-    imageCount: 3,
+    images: [
+      "/images/projects/aquaguard-1.png",
+      "/images/projects/aquaguard-2.png",
+      "/images/projects/aquaguard-3.png",
+    ],
   },
   {
     id: 1,
@@ -25,7 +30,11 @@ const PROJECTS = [
     accent: "#A8D8EA",
     bg: "linear-gradient(145deg, #060910 0%, #0b1422 50%, #070a14 100%)",
     glow: "radial-gradient(ellipse 70% 55% at 50% 42%, rgba(168,216,234,0.15) 0%, transparent 100%)",
-    imageCount: 3,
+    images: [
+      "/images/projects/medihouse-1.png",
+      "/images/projects/medihouse-2.png",
+      "/images/projects/medihouse-3.png",
+    ],
   },
   {
     id: 2,
@@ -36,9 +45,9 @@ const PROJECTS = [
     accent: "#C8AB8A",
     bg: "linear-gradient(145deg, #0c0a08 0%, #1a1510 50%, #100d0a 100%)",
     glow: "radial-gradient(ellipse 70% 55% at 50% 42%, rgba(200,171,138,0.16) 0%, transparent 100%)",
-    imageCount: 3,
+    images: [] as string[],
   },
-] as const;
+];
 
 type Project = (typeof PROJECTS)[number];
 
@@ -161,13 +170,23 @@ const ProjectSlide = ({
               exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
-              <Placeholder project={project} index={imgIdx} />
+              {project.images[imgIdx] ? (
+                <Image
+                  src={project.images[imgIdx]}
+                  alt={`${project.name} screenshot ${imgIdx + 1}`}
+                  fill
+                  className="object-cover object-top"
+                  priority={imgIdx === 0}
+                />
+              ) : (
+                <Placeholder project={project} index={imgIdx} />
+              )}
             </motion.div>
           </AnimatePresence>
 
           {/* Dot indicators */}
           <div className="absolute bottom-3.5 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
-            {Array.from({ length: project.imageCount }).map((_, i) => (
+            {Array.from({ length: Math.max(project.images.length, 1) }).map((_, i) => (
               <div
                 key={i}
                 className="rounded-full transition-all duration-400"
@@ -242,7 +261,7 @@ export const Projects = () => {
   const handleNav = (projectIdx: number, dir: 1 | -1) => {
     setGalleryIndices((prev) => {
       const next = [...prev];
-      const len = PROJECTS[projectIdx].imageCount;
+      const len = Math.max(PROJECTS[projectIdx].images.length, 1);
       next[projectIdx] = (next[projectIdx] + dir + len) % len;
       return next;
     });
