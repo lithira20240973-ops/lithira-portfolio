@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Hero } from "@/components/Hero";
 import { Preloader } from "@/components/Preloader";
+import { About } from "@/components/About";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
@@ -17,7 +18,7 @@ export default function Home() {
       </AnimatePresence>
 
       <motion.main 
-        className="min-h-screen relative"
+        className="relative"
         initial={{ opacity: 0 }}
         animate={{ opacity: loading ? 0 : 1 }}
         transition={{ duration: 1, delay: 0.2 }}
@@ -26,13 +27,11 @@ export default function Home() {
           <Hero />
         </div>
         
-        {/* Subsequent sections need relative positioning, explicit backgrounds, and a higher z-index to cover the fixed Hero */}
-        <div className="relative z-10 bg-[#efefef]">
-          <section id="about" className="min-h-screen w-full flex items-center justify-center border-t border-black/10">
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-black/20">About section</h2>
-          </section>
+        {/* Subsequent sections cover the Hero */}
+        <div className="relative z-10">
+          <About />
 
-          <section id="projects" className="min-h-screen w-full flex items-center justify-center border-t border-black/10">
+          <section id="projects" className="min-h-screen w-full flex items-center justify-center bg-[#0d0d0d] border-t border-white/5">
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-black/20">Projects section</h2>
           </section>
 
