@@ -5,6 +5,7 @@ import { Hero } from "@/components/Hero";
 import { Preloader } from "@/components/Preloader";
 import { About } from "@/components/About";
 import { Projects } from "@/components/Projects";
+import { Droneography } from "@/components/Droneography";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
@@ -32,6 +33,7 @@ export default function Home() {
         <div className="relative z-10">
           <About />
           <Projects />
+          <Droneography />
 
           <section
             id="contact"
