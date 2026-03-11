@@ -45,7 +45,11 @@ const PROJECTS = [
     accent: "#C8AB8A",
     bg: "linear-gradient(145deg, #0c0a08 0%, #1a1510 50%, #100d0a 100%)",
     glow: "radial-gradient(ellipse 70% 55% at 50% 42%, rgba(200,171,138,0.16) 0%, transparent 100%)",
-    images: [] as string[],
+    images: [
+      "/images/projects/estateapp-1.png",
+      "/images/projects/estateapp-2.png",
+      "/images/projects/estateapp-3.png",
+    ],
   },
 ];
 
