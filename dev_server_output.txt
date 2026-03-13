@@ -1,0 +1,24 @@
+
+> port2@0.1.0 dev
+> next dev
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.162:3000
+
+✓ Starting...
+✓ Ready in 674ms
+ GET / 200 in 673ms (compile: 559ms, render: 115ms)
+⚠ Cross origin request detected from 192.168.1.162 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ GET / 200 in 196ms (compile: 76ms, render: 120ms)
+ GET / 200 in 103ms (compile: 1511µs, render: 102ms)
+✓ Compiled in 112ms
+✓ Compiled in 78ms
+✓ Compiled in 128ms
+ GET / 200 in 69ms (compile: 55ms, render: 13ms)
+✓ Compiled in 128ms
+ GET / 200 in 68ms (compile: 54ms, render: 14ms)
+✓ Compiled in 18ms
+✓ Compiled in 80ms
+✓ Compiled in 45ms

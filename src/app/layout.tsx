@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Inter, Dancing_Script } from "next/font/google";
+import { Inter, Dancing_Script, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+});
+
+const ibmPlexSans = IBM_Plex_Sans({
+  variable: "--font-ibm-plex",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
 });
 
 const dancingScript = Dancing_Script({
@@ -26,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${dancingScript.variable} font-sans antialiased`}
+        className={`${inter.variable} ${ibmPlexSans.variable} ${dancingScript.variable} font-sans antialiased`}
       >
         {children}
       </body>

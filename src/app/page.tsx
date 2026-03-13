@@ -6,6 +6,7 @@ import { Preloader } from "@/components/Preloader";
 import { About } from "@/components/About";
 import { Projects } from "@/components/Projects";
 import { Droneography } from "@/components/Droneography";
+import { Education } from "@/components/Education";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
@@ -34,6 +35,7 @@ export default function Home() {
           <About />
           <Projects />
           <Droneography />
+          <Education />
 
           <section
             id="contact"
