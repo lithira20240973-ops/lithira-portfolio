@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 
 export function Contact() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -17,6 +17,43 @@ export function Contact() {
 
   // Staged reveal settings
   const staggerDelay = 0.2;
+
+  // Form State
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+    setErrorMessage('');
+    
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to send message.');
+      }
+
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setStatus('idle'), 5000);
+    } catch (err: any) {
+      console.error(err);
+      setStatus('error');
+      setErrorMessage(err.message);
+      setTimeout(() => {
+        setStatus('idle');
+        setErrorMessage('');
+      }, 8000);
+    }
+  };
 
   // Simple magnetic button effect state
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -78,10 +115,16 @@ export function Contact() {
             {/* Direct Contact Links */}
             <div className="mt-8 flex flex-col gap-2 text-sm text-white/40 font-mono tracking-wide">
               <a href="mailto:lithiratk@gmail.com" className="hover:text-white transition-colors duration-300 w-fit">
-                {">"} lithiratk@gmail.com
+                {">"} mail: lithiratk@gmail.com
               </a>
               <a href="https://linkedin.com/in/lithira-kalubowila" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300 w-fit">
                 {">"} linkedin.com/in/lithira-kalubowila
+              </a>
+              <a href="https://github.com/lithira20240973-ops" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300 w-fit">
+                {">"} github.com/lithira20240973-ops
+              </a>
+              <a href="https://www.instagram.com/lithira.kalubowila?igsh=c2NlcjRobnZwYzNr&utm_source=qr" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300 w-fit">
+                {">"} instagram.com/lithira.kalubowila
               </a>
             </div>
           </motion.div>
@@ -139,8 +182,8 @@ export function Contact() {
                     />
                   </div>
 
-                  {/* Form Fields */}
-                  <div className="flex flex-col gap-6">
+                  {/* Form Fields & Submit Wrapper */}
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -151,6 +194,8 @@ export function Contact() {
                       <input
                         type="text"
                         required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         className="w-full bg-transparent border-b border-white/10 py-3 text-white placeholder-transparent focus:outline-none focus:border-white/50 transition-colors peer"
                         placeholder="Name"
                       />
@@ -169,6 +214,8 @@ export function Contact() {
                       <input
                         type="email"
                         required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full bg-transparent border-b border-white/10 py-3 text-white placeholder-transparent focus:outline-none focus:border-white/50 transition-colors peer"
                         placeholder="Email"
                       />
@@ -187,6 +234,8 @@ export function Contact() {
                       <textarea
                         required
                         rows={3}
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         className="w-full bg-transparent border-b border-white/10 py-3 text-white placeholder-transparent focus:outline-none focus:border-white/50 transition-colors peer resize-none"
                         placeholder="Message"
                       />
@@ -194,19 +243,24 @@ export function Contact() {
                         Message Data
                       </label>
                     </motion.div>
-                  </div>
 
-                  {/* Action Buttons */}
-                  <motion.div
-                    className="flex flex-col sm:flex-row items-center gap-4 mt-8"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: staggerDelay * 5 }}
-                  >
-                    <button className="w-full sm:w-auto px-8 py-3.5 bg-white text-black font-semibold rounded-lg hover:bg-white/90 transition-colors text-sm">
-                      Transmit
-                    </button>
+                    {/* Action Buttons */}
+                    <motion.div
+                      className="flex flex-col sm:flex-row items-center gap-4 mt-8"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: staggerDelay * 5 }}
+                    >
+                      <button 
+                        type="submit" 
+                        disabled={status === 'loading'}
+                        className={`w-full sm:w-auto px-8 py-3.5 font-semibold rounded-lg transition-colors text-sm ${
+                          status === 'success' ? 'bg-green-500 text-white' : status === 'error' ? 'bg-red-500 text-white' : 'bg-white text-black hover:bg-white/90'
+                        }`}
+                      >
+                        {status === 'loading' ? 'Transmitting...' : status === 'success' ? 'Transmission Sent' : status === 'error' ? 'Failed' : 'Transmit'}
+                      </button>
 
                     <a
                       href="/CV.pdf"
@@ -228,7 +282,21 @@ export function Contact() {
                         </svg>
                       </motion.button>
                     </a>
+                    
+                    {/* Error Message Display */}
+                    <AnimatePresence>
+                      {status === 'error' && errorMessage && (
+                        <motion.p 
+                          initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }}
+                          className="pt-2 sm:pt-0 sm:pl-4 text-red-500 text-xs font-mono tracking-wide"
+                        >
+                          {errorMessage}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
+                    
                   </motion.div>
+                  </form>
 
                 </div>
               </div>

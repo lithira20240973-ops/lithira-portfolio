@@ -237,33 +237,33 @@ const DroneRadar = () => (
 const STACK_DATA = [
   {
     id: "frontend",
-    title: "Frontend",
-    description: "Architecting interactive user interfaces.",
-    skills: ["HTML", "CSS", "JavaScript (Basic)"],
+    title: "Frontend Engineering",
+    description: "Architecting interactive user interfaces with modern web technologies.",
+    skills: ["HTML5", "CSS3", "JavaScript", "React", "Next.js", "Tailwind CSS"],
     visualBg: <PixelGrid />,
     visualCard: <FrontendCube />
   },
   {
-    id: "programming",
-    title: "Programming",
-    description: "Building the logic underneath.",
-    skills: ["Java (Beginner)"],
+    id: "software",
+    title: "Software Development",
+    description: "Building robust systems, databases, and core application logic.",
+    skills: ["Java", "Python", "SQL", "Git", "OOP"],
     visualBg: <AnimatedTerminal />,
     visualCard: <NodeNetwork />
   },
   {
     id: "media",
-    title: "Creative Media",
-    description: "Crafting visual narratives.",
-    skills: ["Adobe Premiere Pro", "DaVinci Resolve"],
+    title: "Creative Media & UI",
+    description: "Crafting visual narratives and seamless user experiences.",
+    skills: ["Figma", "UI/UX Design", "Adobe Premiere Pro", "DaVinci Resolve"],
     visualBg: <WaveformVisual />,
     visualCard: <FilmStrips />
   },
   {
-    id: "drone",
-    title: "Production",
-    description: "Capturing the world from above.",
-    skills: ["Drone Videography", "Aerial Cinematography"],
+    id: "production",
+    title: "Digital Production",
+    description: "Capturing and editing high-end visual and aerial content.",
+    skills: ["Drone Videography", "Cinematography", "Color Grading"],
     visualBg: <TopoMapVisual />,
     visualCard: <DroneRadar />
   }
@@ -287,6 +287,7 @@ export function TechStack() {
 
   return (
     <section
+      id="tech-stack"
       ref={containerRef}
       className="relative bg-[#0B0C0F] text-white"
       style={{ height: "400vh", fontFamily: "var(--font-space-grotesk), sans-serif" }}

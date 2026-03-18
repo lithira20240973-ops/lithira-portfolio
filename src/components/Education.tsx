@@ -31,8 +31,8 @@ const educationData: EducationEntry[] = [
     id: 2,
     year: "Jun 2024 – Sep 2024",
     label: "Jun 2024",
-    institution: "Informatics Institute of Technology (IIT)",
-    qualification: "Foundation Certificate in Higher Education",
+    institution: "IIT",
+    qualification: "Foundation Certificate",
     color: "#2D7FFF",
   },
   {
@@ -41,6 +41,11 @@ const educationData: EducationEntry[] = [
     label: "2024",
     institution: "Lyceum International School, Panadura",
     qualification: "Edexcel Advanced Level",
+    subjects: [
+      { name: "IT", grade: "A*" },
+      { name: "Business", grade: "A" },
+      { name: "Economics", grade: "A" }
+    ],
     color: "#2DFF8A",
   },
   {

@@ -10,9 +10,12 @@ export function Navbar() {
         <div className="md:hidden">
           <span>&copy; Lithira D&M</span>
         </div>
-        <div className="flex gap-8 md:gap-20">
+        <div className="hidden md:flex gap-6 lg:gap-10 text-xs md:text-[13px] font-medium tracking-widest uppercase">
+          <a href="#" className="hover:text-black transition-colors" onClick={(e) => { e.preventDefault(); window.scrollTo({top:0, behavior:'smooth'})}}>Home</a>
           <a href="#about" className="hover:text-black transition-colors">About</a>
           <a href="#projects" className="hover:text-black transition-colors">Projects</a>
+          <a href="#education" className="hover:text-black transition-colors">Education</a>
+          <a href="#tech-stack" className="hover:text-black transition-colors">Tech</a>
         </div>
       </div>
       <div className="hidden md:flex w-1/3 justify-end">

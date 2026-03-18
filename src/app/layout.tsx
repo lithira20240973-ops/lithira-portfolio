@@ -27,8 +27,25 @@ const dancingScript = Dancing_Script({
 });
 
 export const metadata: Metadata = {
-  title: "Lithira Kalubowila | Portfolio",
-  description: "Portfolio of Lithira Kalubowila",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  title: {
+    template: "%s — Lithira Kalubowila",
+    default: "Lithira Kalubowila — Web Developer & Creative Media",
+  },
+  description: "Portfolio of Lithira Kalubowila, a Web Developer & Creative Media specialist. Crafting premium digital experiences, seamless UI, and robust systems.",
+  openGraph: {
+    title: "Lithira Kalubowila — Web Developer & Creative Media",
+    description: "Portfolio of Lithira Kalubowila, a Web Developer & Creative Media specialist based in Sri Lanka.",
+    url: "/",
+    siteName: "Lithira Kalubowila Portfolio",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lithira Kalubowila — Web Developer & Creative Media",
+    description: "Portfolio of Lithira Kalubowila, a Web Developer & Creative Media specialist.",
+  },
 };
 
 export default function RootLayout({

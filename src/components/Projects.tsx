@@ -87,8 +87,8 @@ const Placeholder = ({ project, index }: { project: Project; index: number }) =>
       >
         {project.name} · Preview {index + 1}
       </p>
-      <p className="text-[0.5rem] tracking-[0.25em] uppercase text-white/18">
-        Replace with actual screenshot
+      <p className="text-[0.5rem] tracking-[0.25em] uppercase text-white/40">
+        Project Assets In Production
       </p>
     </div>
   </div>
