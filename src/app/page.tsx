@@ -7,6 +7,9 @@ import { About } from "@/components/About";
 import { Projects } from "@/components/Projects";
 import { Droneography } from "@/components/Droneography";
 import { Education } from "@/components/Education";
+import { TechStack } from "@/components/TechStack";
+import { TechMarquee } from "@/components/TechMarquee";
+import { Contact } from "@/components/Contact";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
@@ -36,15 +39,10 @@ export default function Home() {
           <Projects />
           <Droneography />
           <Education />
+          <TechStack />
+          <TechMarquee />
 
-          <section
-            id="contact"
-            className="min-h-[70vh] w-full flex items-center justify-center bg-[#0a0a0a] border-t border-white/5"
-          >
-            <h2 className="text-4xl md:text-6xl font-light tracking-tighter text-white/10">
-              Contact section
-            </h2>
-          </section>
+          <Contact />
         </div>
       </motion.main>
     </>

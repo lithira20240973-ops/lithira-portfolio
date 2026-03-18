@@ -36,10 +36,10 @@ export function Hero() {
         <Navbar />
         <SocialRail />
 
-        {/* Role Text Bottom Right */}
+        {/* Role Block Bottom Right */}
         <div className="absolute right-6 bottom-6 md:right-10 md:bottom-10 text-right z-20 text-[#111]">
-          <p className="text-2xl md:text-5xl font-bold tracking-tighter mb-0 md:mb-1">Web Designer</p>
-          <p className="text-xl md:text-3xl font-medium text-black/70 tracking-tight">Art Director</p>
+          <p className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-0 md:mb-1">// Web Developer</p>
+          <p className="text-xl md:text-3xl font-medium text-black/70 tracking-tight">Creative Media & UI</p>
         </div>
 
         {/* Huge Name Text with combined scroll translation and continuous marquee */}

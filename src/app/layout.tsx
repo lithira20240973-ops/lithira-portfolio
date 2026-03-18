@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Dancing_Script, IBM_Plex_Sans } from "next/font/google";
+import { Inter, IBM_Plex_Sans, Space_Grotesk, Dancing_Script } from "next/font/google";
 import "./globals.css";
+import { SmoothScroll } from "@/components/SmoothScroll";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,10 +14,16 @@ const ibmPlexSans = IBM_Plex_Sans({
   weight: ["400", "500", "700"],
 });
 
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
+
 const dancingScript = Dancing_Script({
   variable: "--font-dancing",
   subsets: ["latin"],
-  weight: "700",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -32,9 +39,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${ibmPlexSans.variable} ${dancingScript.variable} font-sans antialiased`}
+        className={`${inter.variable} ${ibmPlexSans.variable} ${spaceGrotesk.variable} ${dancingScript.variable} font-sans antialiased bg-[#e2e2e2] text-black`}
       >
-        {children}
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );

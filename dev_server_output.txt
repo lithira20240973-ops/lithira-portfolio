@@ -22,3 +22,22 @@ Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allow
 ✓ Compiled in 18ms
 ✓ Compiled in 80ms
 ✓ Compiled in 45ms
+ GET / 200 in 204ms (compile: 75ms, render: 129ms)
+✓ Compiled in 27ms
+✓ Compiled in 32ms
+✓ Compiled in 66ms
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+✓ Compiled in 63ms
+ GET / 200 in 322ms (compile: 87ms, render: 235ms)
+✓ Compiled in 28ms
+✓ Compiled in 139ms
+✓ Compiled in 34ms
+ GET / 200 in 203ms (compile: 91ms, render: 112ms)
+ GET / 200 in 95ms (compile: 3ms, render: 92ms)
+✓ Compiled in 31ms
+✓ Compiled in 65ms
+ GET / 200 in 85ms (compile: 75ms, render: 10ms)
+ GET / 200 in 142ms (compile: 29ms, render: 113ms)
+✓ Compiled in 80ms
+ GET / 200 in 197ms (compile: 70ms, render: 126ms)
+✓ Compiled in 68ms

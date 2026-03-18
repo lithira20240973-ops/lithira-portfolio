@@ -198,7 +198,7 @@ export const Droneography = () => {
         ref={sectionRef}
         id="droneography"
         className="relative bg-[#050508]"
-        style={{ height: "450vh" }}
+        style={{ height: "350vh" }}
       >
         <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
           
