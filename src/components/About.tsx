@@ -38,6 +38,9 @@ export const About = () => {
     return useTransform(smooth, [start, start + 0.08], ["var(--text-muted)", seg.h ? "var(--text-primary)" : "var(--text-secondary)"]);
   });
 
+  // Fade out dust particles as we scroll down the extra 100vh
+  const dustOpacity = useTransform(smooth, [0.45, 0.75], [1, 0]);
+
   return (
     <section
       data-cursor-theme="about"
@@ -51,7 +54,9 @@ export const About = () => {
                       px-8 md:px-16 lg:px-24 xl:px-28
                       pt-10 pb-12 md:pt-12 md:pb-16 z-0"
       >
-        <MetallicDust />
+        <motion.div className="absolute inset-0 pointer-events-none z-0" style={{ opacity: dustOpacity }}>
+          <MetallicDust />
+        </motion.div>
 
         {/* ① Top label */}
         <div className="relative z-10">
@@ -144,6 +149,9 @@ export const About = () => {
 
       {/* Scroll space — gives the color animation time to play */}
       <div className="h-[100vh]" />
+
+      {/* Smooth atmospheric fade to blend into the Projects section (#050505 base) */}
+      <div className="absolute bottom-0 left-0 right-0 h-[60vh] bg-gradient-to-b from-transparent to-[#050505] pointer-events-none z-20" />
     </section>
   );
 };

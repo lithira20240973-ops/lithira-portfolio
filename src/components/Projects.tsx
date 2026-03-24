@@ -139,7 +139,7 @@ const ProjectSlide = ({
         WebkitMaskImage: "radial-gradient(ellipse 65% 70% at 50% 55%, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)",
       }}
     >
-       <MetallicDust />
+       <MetallicDust density="sparse" />
     </div>
 
     {/* 5. Luminous Sweeps / Light Streaks (slowly animated) */}

@@ -24,7 +24,7 @@ interface Particle {
   shimmerSpeed: number;
 }
 
-export const MetallicDust = () => {
+export const MetallicDust = ({ density = "normal" }: { density?: "normal" | "sparse" }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -40,8 +40,10 @@ export const MetallicDust = () => {
     canvas.width = width;
     canvas.height = height;
 
-    // Very conservative density for luxury minimalist feel
-    const particleCount = Math.min(Math.floor((width * height) / 6500), 250);
+    // Adjust density based on prop
+    const areaDivider = density === "sparse" ? 18000 : 4500;
+    const maxParticles = density === "sparse" ? 80 : 350;
+    const particleCount = Math.min(Math.floor((width * height) / areaDivider), maxParticles);
     const particles: Particle[] = [];
 
     for (let i = 0; i < particleCount; i++) {
