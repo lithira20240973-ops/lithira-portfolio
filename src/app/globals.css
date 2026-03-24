@@ -31,3 +31,9 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Force hide all default system cursors on desktop to ensure perfect custom cursor illusion */
+@media (pointer: fine) {
+  *, *::before, *::after, a, button, input, textarea, select, [role="button"] {
+    cursor: none !important;
+  }
+}

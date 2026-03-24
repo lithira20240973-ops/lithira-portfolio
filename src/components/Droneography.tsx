@@ -7,6 +7,7 @@ import {
   useSpring,
   useTransform,
   AnimatePresence,
+  useMotionValue,
   type MotionValue,
 } from "framer-motion";
 
@@ -192,33 +193,53 @@ export const Droneography = () => {
   const titleY = useTransform(smoothProgress, [0, 0.4], [0, -120]);
   const titleOpacity = useTransform(smoothProgress, [0, 0.25], [1, 0]);
 
+  // Mouse Parallax for Atmospheric Depth
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    mouseX.set((e.clientX / window.innerWidth) - 0.5);
+    mouseY.set((e.clientY / window.innerHeight) - 0.5);
+  };
+
+  const smoothMouseX = useSpring(mouseX, { stiffness: 35, damping: 25 });
+  const smoothMouseY = useSpring(mouseY, { stiffness: 35, damping: 25 });
+
+  // Mouse tracking is kept for future interaction if needed, but unused in background to save layout reflows.
   return (
     <>
       <section
         ref={sectionRef}
         id="droneography"
-        className="relative bg-[var(--background-primary)]"
+        className="relative bg-[#020305]"
         style={{ height: "350vh" }}
+        onMouseMove={handleMouseMove}
       >
         <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
           
-          {/* ── Background ────────────────────────────────────────── */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            {/* Base Gradient */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,var(--background-secondary)_0%,var(--background-primary)_70%)] opacity-80" />
+          {/* ── Cinematic Atmospheric Background ────────────────────── */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden bg-[#020305]">
             
-            {/* Subtle glow behind title - atmospheric haze */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[var(--accent-primary)]/10 blur-[150px] rounded-full" />
+            {/* 1. Deep Aerial Foundation Base */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0d14] via-[#05070a] to-[#020203]" />
+            
+            {/* 2. Unified Atmospheric Haze (Performance Optimized: Static + Soft Pulse) */}
+            <motion.div 
+              className="absolute top-[-20%] left-[-10%] w-[120vw] h-[140vh] bg-[radial-gradient(ellipse_at_center,rgba(80,110,140,0.15)_0%,transparent_60%)] blur-[100px] rounded-full mix-blend-screen"
+              animate={{ opacity: [0.6, 0.9, 0.6] }}
+              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+            />
 
-            {/* Orbital Traces */}
-            <svg className="absolute inset-0 w-full h-full opacity-[0.06]" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
-              <ellipse cx="720" cy="450" rx={RX} ry={RY} fill="none" stroke="var(--text-primary)" strokeWidth="0.5" strokeDasharray="4 20" />
-              <ellipse cx="720" cy="450" rx={RX * 0.7} ry={RY * 0.7} fill="none" stroke="var(--text-primary)" strokeWidth="0.3" strokeDasharray="2 15" />
-              <circle cx="720" cy="450" r="1.5" fill="var(--accent-primary)" opacity="0.5" />
-            </svg>
+            {/* 3. Volumetric Light Beam (Simplified, drifting slowly, no mouse tracking) */}
+            <motion.div 
+              className="absolute top-0 left-[20%] w-[40vw] h-[150%] -rotate-[15deg] bg-gradient-to-b from-transparent via-[rgba(160,190,220,0.1)] to-transparent blur-[70px] mix-blend-screen"
+              animate={{ x: ["-10%", "10%", "-10%"], opacity: [0.6, 1, 0.6] }}
+              transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+            />
 
-            {/* Film Grain */}
-            <div className="absolute inset-0 opacity-[0.025] mix-blend-overlay pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
+            {/* 4. Edge Vignette (Controls light spill) */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.85)_100%)] z-10" />
+            
           </div>
 
           {/* ── Centered Heading ──────────────────────────────────── */}
@@ -236,11 +257,12 @@ export const Droneography = () => {
               Droneography
             </motion.span>
             <motion.h2 
-              className="text-[clamp(2rem,5vw,4.5rem)] font-extralight tracking-[-0.03em] text-white/90 leading-none"
+              className="text-[clamp(2.5rem,5vw,5rem)] font-light tracking-[-0.03em] text-[var(--text-primary)] leading-none"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              style={{ textShadow: "0 10px 40px rgba(0,0,0,0.9)" }}
             >
               Aerial Visual Archive
             </motion.h2>

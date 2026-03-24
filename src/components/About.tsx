@@ -38,7 +38,7 @@ export const About = () => {
     return useTransform(smooth, [start, start + 0.08], ["var(--text-muted)", seg.h ? "var(--text-primary)" : "var(--text-secondary)"]);
   });
 
-  // Fade out dust particles as we scroll down the extra 100vh
+  // Fade out dust particles as we scroll down to transition
   const dustOpacity = useTransform(smooth, [0.45, 0.75], [1, 0]);
 
   return (
@@ -54,7 +54,16 @@ export const About = () => {
                       px-8 md:px-16 lg:px-24 xl:px-28
                       pt-10 pb-12 md:pt-12 md:pb-16 z-0"
       >
-        <motion.div className="absolute inset-0 pointer-events-none z-0" style={{ opacity: dustOpacity }}>
+        {/* Subtle, elegant Chrome Micro-Dust Field */}
+        <motion.div 
+          className="absolute inset-0 pointer-events-none z-0" 
+          style={{ 
+            opacity: dustOpacity,
+            // Fade out the dust behind the heavy text block on the left to prioritize readability
+            maskImage: "linear-gradient(to right, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,1) 60%)",
+            WebkitMaskImage: "linear-gradient(to right, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,1) 60%)"
+          }}
+        >
           <MetallicDust />
         </motion.div>
 

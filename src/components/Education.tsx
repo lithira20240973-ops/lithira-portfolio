@@ -3,6 +3,7 @@
 import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { ChromeMandala } from "./ChromeMandala";
 
 interface EducationEntry {
   id: number;
@@ -70,23 +71,14 @@ const educationData: EducationEntry[] = [
 
 const softSkills = ["Leadership", "Communication", "Teamwork", "Problem-Solving", "Creativity", "Adaptability"];
 
-const GrainOverlay = () => (
-  <div className="pointer-events-none fixed inset-0 z-50 opacity-[0.035] mix-blend-overlay">
-    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <filter id="noiseFilter">
-        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
-      </filter>
-      <rect width="100%" height="100%" filter="url(#noiseFilter)" />
-    </svg>
-  </div>
-);
+// Removed GrainOverlay for performance optimization
 
 const AlevelAccordion = ({ subjects }: { subjects: { name: string; grade: string }[] }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="mt-4 border-t border-[var(--border-soft)] pt-4">
-      <button 
+      <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 text-[0.65rem] uppercase tracking-[0.2em] font-bold text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors group"
       >
@@ -106,7 +98,7 @@ const AlevelAccordion = ({ subjects }: { subjects: { name: string; grade: string
           >
             <div className="grid grid-cols-2 gap-y-2 gap-x-8 pt-4 pb-2">
               {subjects.map((s, i) => (
-                <div 
+                <div
                   key={i}
                   className="flex justify-between items-center border-b border-[var(--border-soft)] pb-1"
                 >
@@ -137,7 +129,7 @@ const EducationCard = ({ card, index, progress }: { card: EducationEntry, index:
       endBoundary - buffer,   // Fade out start
       endBoundary + buffer    // Fade out complete
     ],
-    index === 0 
+    index === 0
       ? [1, 1, 1, 0] // First card starts visible
       : index === total - 1
         ? [0, 1, 1, 1] // Last card stays visible
@@ -159,7 +151,7 @@ const EducationCard = ({ card, index, progress }: { card: EducationEntry, index:
         ? [12, 0, 0, 0] // Last card
         : [12, 0, 0, -12]
   );
-  
+
   // Toggle pointer events to prevent clicking invisible cards underneath
   const pointerEvents = useTransform(progress, (p: number) => {
     const isActive = index === 0
@@ -171,7 +163,7 @@ const EducationCard = ({ card, index, progress }: { card: EducationEntry, index:
   });
 
   return (
-    <motion.div 
+    <motion.div
       className="absolute inset-0 flex items-center justify-center"
       style={{ opacity, y, pointerEvents: pointerEvents as any }}
     >
@@ -182,7 +174,7 @@ const EducationCard = ({ card, index, progress }: { card: EducationEntry, index:
           <p className="text-[clamp(0.875rem,2vw,1.25rem)] text-[var(--text-muted)] font-medium font-[var(--font-ibm-plex)] leading-tight mb-2">
             {card.institution}
           </p>
-          
+
           <h3 className="text-[clamp(1.75rem,5vw,4.5rem)] font-bold tracking-tight leading-[1.05] text-[var(--text-primary)] font-[var(--font-inter)]">
             {card.qualification}
           </h3>
@@ -208,8 +200,8 @@ const EducationCard = ({ card, index, progress }: { card: EducationEntry, index:
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {card.modules.map((m, i) => (
-                    <span 
-                      key={i} 
+                    <span
+                      key={i}
                       className="text-[0.7rem] font-medium text-[var(--text-primary)] bg-[var(--background-elevated)] px-3.5 py-1.5 rounded-full border border-[var(--border-medium)] shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
                     >
                       {m}
@@ -218,7 +210,7 @@ const EducationCard = ({ card, index, progress }: { card: EducationEntry, index:
                 </div>
               </div>
             )}
-            
+
             {card.subjects && <AlevelAccordion subjects={card.subjects} />}
           </div>
         </div>
@@ -235,43 +227,43 @@ const TimelineItem = ({ item, index, progress }: { item: EducationEntry, index: 
 
   // Active state: sync with the card crossfade boundaries
   const isActiveProgress = useTransform(
-    progress, 
-    [startBoundary - buffer, startBoundary + buffer, endBoundary - buffer, endBoundary + buffer], 
+    progress,
+    [startBoundary - buffer, startBoundary + buffer, endBoundary - buffer, endBoundary + buffer],
     [0, 1, 1, 0]
   );
-  
+
   // Visual props
   const dotColor = useTransform(
-    progress, 
-    [startBoundary - buffer, startBoundary + buffer, endBoundary - buffer, endBoundary + buffer], 
+    progress,
+    [startBoundary - buffer, startBoundary + buffer, endBoundary - buffer, endBoundary + buffer],
     ["transparent", item.color, item.color, "transparent"]
   );
   const labelOpacity = useTransform(
-    progress, 
-    [startBoundary - buffer, startBoundary + buffer, endBoundary - buffer, endBoundary + buffer], 
+    progress,
+    [startBoundary - buffer, startBoundary + buffer, endBoundary - buffer, endBoundary + buffer],
     [0.25, 1, 1, 0.25]
   );
   const labelScale = useTransform(
-    progress, 
-    [startBoundary - buffer, startBoundary + buffer, endBoundary - buffer, endBoundary + buffer], 
+    progress,
+    [startBoundary - buffer, startBoundary + buffer, endBoundary - buffer, endBoundary + buffer],
     [1, 1.05, 1.05, 1]
   );
 
   return (
     <div className="flex items-center gap-6">
       <div className="relative flex items-center justify-center">
-        <motion.div 
+        <motion.div
           className="w-2 h-2 rounded-full z-10 shadow-[0_0_10px_var(--glow-soft)]"
           style={{ backgroundColor: dotColor }}
         />
-        <motion.div 
+        <motion.div
           className="absolute w-4 h-4 rounded-full border border-[var(--border-medium)]"
           style={{ opacity: isActiveProgress }}
           animate={{ scale: [1, 1.25, 1] }}
           transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
         />
       </div>
-      <motion.span 
+      <motion.span
         style={{ opacity: labelOpacity, scale: labelScale }}
         className="text-[0.65rem] uppercase tracking-[0.2em] font-bold text-[var(--text-primary)]"
       >
@@ -283,7 +275,7 @@ const TimelineItem = ({ item, index, progress }: { item: EducationEntry, index: 
 
 export function Education() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -297,22 +289,30 @@ export function Education() {
 
   return (
     // FIX applied here: Remvoed overflow-hidden which broke the sticky positioning for 400vh
-    <section 
+    <section
       data-cursor-theme="education"
-      ref={containerRef} 
-      id="education" 
-      className="relative bg-[var(--background-secondary)] text-[var(--text-primary)]" 
+      ref={containerRef}
+      id="education"
+      className="relative bg-[var(--background-secondary)] text-[var(--text-primary)]"
       style={{ height: "400vh" }}
     >
-      <GrainOverlay />
-      
       <div className="sticky top-0 h-screen w-full flex flex-col justify-between py-16 px-8 md:px-16 lg:px-24 overflow-hidden relative">
-        {/* Background distinction & atmospheric depth */}
-        <div className="absolute top-0 right-0 w-[60vw] h-[60vh] bg-[var(--accent-primary)]/5 blur-[120px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[40vw] h-[40vh] bg-[var(--accent-soft)] blur-[100px] rounded-full pointer-events-none" />
+        {/* --- ATMOSPHERIC LIGHTING (Optimized for Performance) --- */}
         
+        {/* Centered ambient glow with ultra-lightweight static mandala */}
+        <div className="absolute inset-0 m-auto w-[65vw] h-[65vw] max-w-[850px] max-h-[850px] min-w-[500px] min-h-[500px] pointer-events-none z-0 opacity-100 mix-blend-screen overflow-hidden">
+           <motion.div 
+             className="absolute inset-0 opacity-100 flex items-center justify-center p-8" 
+             style={{ maskImage: "radial-gradient(circle at center, black 50%, transparent 95%)", WebkitMaskImage: "radial-gradient(circle at center, black 50%, transparent 95%)" }}
+             animate={{ rotate: 360 }}
+             transition={{ duration: 180, repeat: Infinity, ease: "linear" }}
+           >
+             <ChromeMandala />
+           </motion.div>
+        </div>
+
         <div className="z-10 flex justify-between items-start relative">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="text-[var(--text-muted)] text-[0.65rem] tracking-[0.4em] uppercase font-bold"
@@ -320,53 +320,53 @@ export function Education() {
             // Education History
           </motion.span>
           <div className="text-[var(--text-muted)] opacity-60 text-[0.6rem] tracking-[0.2em] font-medium text-right uppercase hidden md:block">
-            Curriculum Vitae <br/> Vol. 02 - Ref. 2025
+            Curriculum Vitae <br /> Vol. 02 - Ref. 2025
           </div>
         </div>
 
         <div className="relative flex-1">
           {educationData.map((card, index) => (
-            <EducationCard 
-              key={card.id} 
-              card={card} 
-              index={index} 
-              progress={smoothProgress} 
+            <EducationCard
+              key={card.id}
+              card={card}
+              index={index}
+              progress={smoothProgress}
             />
           ))}
         </div>
 
         <div className="grid grid-cols-12 gap-8 items-end z-10">
-          
+
           <div className="col-span-12 md:col-span-3 h-full flex items-end pb-2">
             <div className="flex flex-col gap-8">
               {educationData.map((item, i) => (
-                <TimelineItem 
-                  key={item.id} 
-                  item={item} 
-                  index={i} 
-                  progress={smoothProgress} 
+                <TimelineItem
+                  key={item.id}
+                  item={item}
+                  index={i}
+                  progress={smoothProgress}
                 />
               ))}
             </div>
           </div>
 
           <div className="col-span-12 md:col-span-9 flex flex-col md:items-end gap-10">
-             <div className="w-full h-[1px] bg-[var(--border-soft)] md:hidden" />
-             <div className="flex flex-col md:items-end gap-5">
-                <h4 className="text-[0.6rem] uppercase tracking-[0.3em] font-bold text-[var(--text-muted)]">
-                  Core Competencies
-                </h4>
-                <div className="flex flex-wrap md:justify-end gap-2.5 max-w-2xl">
-                  {softSkills.map((skill, i) => (
-                    <span
-                      key={i}
-                      className="px-4 py-2 rounded-full border border-[var(--border-medium)] bg-[var(--background-elevated)] text-[0.75rem] font-bold tracking-tight text-[var(--text-primary)] shadow-[0_4px_12px_rgba(0,0,0,0.3)] backdrop-blur-sm"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-             </div>
+            <div className="w-full h-[1px] bg-[var(--border-soft)] md:hidden" />
+            <div className="flex flex-col md:items-end gap-5">
+              <h4 className="text-[0.6rem] uppercase tracking-[0.3em] font-bold text-[var(--text-muted)]">
+                Core Competencies
+              </h4>
+              <div className="flex flex-wrap md:justify-end gap-2.5 max-w-2xl">
+                {softSkills.map((skill, i) => (
+                  <span
+                    key={i}
+                    className="px-4 py-2 rounded-full border border-[var(--border-medium)] bg-[var(--background-elevated)] text-[0.75rem] font-bold tracking-tight text-[var(--text-primary)] shadow-[0_4px_12px_rgba(0,0,0,0.3)] backdrop-blur-sm"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 

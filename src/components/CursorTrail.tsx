@@ -9,10 +9,10 @@ type HoverState = "default" | "link" | "text" | "card" | "input";
 export default function CursorTrail() {
   const [isVisible, setIsVisible] = useState(false);
   const [isTouch, setIsTouch] = useState(false);
-  
+
   const [theme, setTheme] = useState<Theme>("home");
   const [hoverState, setHoverState] = useState<HoverState>("default");
-  
+
   const [cursorText, setCursorText] = useState("");
   const [isClicking, setIsClicking] = useState(false);
 
@@ -99,7 +99,7 @@ export default function CursorTrail() {
   if (isTouch) return null;
 
   // --- Dynamic Theme Generators ---
-  
+
   // Base designs for each page theme (applied when hoverState === 'default')
   const getThemeOuterBase = (t: Theme) => {
     const base = {
@@ -109,7 +109,7 @@ export default function CursorTrail() {
       borderRadius: "50%",
       borderStyle: "solid",
     };
-    
+
     switch (t) {
       case "home": // Bold, cinematic
         return { ...base, width: 44, height: 44, borderColor: "rgba(17,17,17,0.4)", borderWidth: 1.5, backgroundColor: "rgba(17,17,17,0)" };
@@ -252,10 +252,10 @@ export default function CursorTrail() {
             </motion.span>
           )}
         </AnimatePresence>
-        
+
         {/* Tech Theme Segmented/Tech Accents (Internal to outer ring) */}
         {theme === "tech" && hoverState === "default" && (
-          <motion.div 
+          <motion.div
             className="absolute inset-[-4px] border border-dashed border-white/30 rounded-[6px]"
             animate={{ rotate: -90 }}
             transition={{ duration: 10, repeat: Infinity, ease: "linear" }}

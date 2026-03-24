@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
-import { MetallicDust } from "./MetallicDust";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const PROJECTS = [
@@ -113,36 +112,16 @@ const ProjectSlide = ({
     
     {/* 1. Base Graphite/Metal Gradient */}
     <div 
-      className="absolute inset-0 z-0 bg-gradient-to-br from-[var(--background-secondary)] via-[var(--background-primary)] to-[#030303] opacity-80"
-    />
-    
-    {/* 2. Metallic Grain Texture */}
-    <div
-      className="absolute inset-0 z-0 opacity-[0.025] mix-blend-overlay pointer-events-none"
-      style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        backgroundRepeat: 'repeat',
-      }}
+      className="absolute inset-0 z-0 bg-gradient-to-br from-[var(--background-secondary)] via-[var(--background-primary)] to-[#030303] opacity-80 pointer-events-none"
     />
 
-    {/* 3. Soft Diffused Spotlight / Radial Glow (Cool Silver) */}
+    {/* 2. Soft Diffused Spotlight / Radial Glow (Cool Silver) */}
     <div 
       className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] w-[70vw] h-[70vh] rounded-full blur-[130px] opacity-40 mix-blend-screen pointer-events-none z-0"
       style={{ background: "radial-gradient(ellipse at center, rgba(160, 175, 195, 0.1) 0%, transparent 70%)" }}
     />
 
-    {/* 4. Sparse Metallic Micro-particles (masked from the center card) */}
-    <div 
-      className="absolute inset-0 z-0 opacity-40 pointer-events-none"
-      style={{
-        maskImage: "radial-gradient(ellipse 65% 70% at 50% 55%, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)",
-        WebkitMaskImage: "radial-gradient(ellipse 65% 70% at 50% 55%, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)",
-      }}
-    >
-       <MetallicDust density="sparse" />
-    </div>
-
-    {/* 5. Luminous Sweeps / Light Streaks (slowly animated) */}
+    {/* 3. Luminous Sweeps / Light Streaks (slowly animated) */}
     <motion.div
       className="absolute inset-0 z-0 opacity-15 pointer-events-none mix-blend-screen"
       animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
