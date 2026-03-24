@@ -62,7 +62,7 @@ const PixelGrid = () => (
 );
 
 const AnimatedTerminal = () => (
-  <div className="absolute inset-0 flex flex-col justify-end p-8 font-mono text-[0.6rem] text-[#2DFF8A] opacity-60 overflow-hidden">
+  <div className="absolute inset-0 flex flex-col justify-end p-8 font-mono text-[0.6rem] text-[var(--text-primary)] opacity-60 overflow-hidden">
     <motion.div
       initial={{ y: 20, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
@@ -81,7 +81,7 @@ const AnimatedTerminal = () => (
         <motion.span
           animate={{ opacity: [1, 0, 1] }}
           transition={{ repeat: Infinity, duration: 0.8 }}
-          className="w-2 h-3 bg-[#2DFF8A] ml-1 mt-0.5"
+          className="w-2 h-3 bg-[var(--accent-primary)] ml-1 mt-0.5 shadow-[0_0_8px_var(--glow-soft)]"
         />
       </div>
     </motion.div>
@@ -94,7 +94,7 @@ const WaveformVisual = () => (
       {Array.from({ length: 40 }).map((_, i) => (
         <motion.div
           key={i}
-          className="w-1 bg-[#2D7FFF] rounded-full"
+          className="w-1 bg-[var(--accent-primary)] shadow-[0_0_10px_var(--glow-soft)] rounded-full"
           initial={{ height: 4 }}
           animate={{ height: ["4px", `${Math.random() * 100 + 10}px`, "4px"] }}
           transition={{ repeat: Infinity, duration: Math.random() * 1 + 0.5, ease: "easeInOut" }}
@@ -164,10 +164,10 @@ const NodeNetwork = () => (
         <circle cx="180" cy="30" r="3" />
         <circle cx="20" cy="120" r="3" />
       </g>
-      <motion.circle r="3" fill="#2DFF8A"
+      <motion.circle r="3" fill="var(--accent-primary)"
         animate={{ cx: [50, 150, 100, 50], cy: [50, 80, 150, 50] }}
         transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-        style={{ filter: "drop-shadow(0 0 4px #2DFF8A)" }}
+        style={{ filter: "drop-shadow(0 0 8px var(--accent-primary))" }}
       />
     </svg>
   </div>
@@ -216,8 +216,8 @@ const DroneRadar = () => (
 
       {/* Blips */}
       <motion.div
-        className="absolute w-2 h-2 bg-[#FF4D2D] rounded-full top-12 right-12"
-        style={{ filter: "drop-shadow(0 0 6px #FF4D2D)" }}
+        className="absolute w-2 h-2 bg-[var(--accent-primary)] rounded-full top-12 right-12"
+        style={{ filter: "drop-shadow(0 0 8px var(--accent-primary))" }}
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
       />
@@ -287,14 +287,15 @@ export function TechStack() {
 
   return (
     <section
+      data-cursor-theme="tech"
       id="tech-stack"
       ref={containerRef}
-      className="relative bg-[#0B0C0F] text-white"
+      className="relative bg-[var(--background-primary)] text-[var(--text-primary)]"
       style={{ height: "400vh", fontFamily: "var(--font-space-grotesk), sans-serif" }}
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col">
         <NoiseOverlay />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_150%,#1a1b26_0%,#0B0C0F_70%)] opacity-80 pointer-events-none z-0" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_150%,var(--background-secondary)_0%,var(--background-primary)_70%)] opacity-80 pointer-events-none z-0" />
 
         {/* Top Progress Bar */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-white/5 z-50">
@@ -348,7 +349,7 @@ export function TechStack() {
                     <div className="flex flex-wrap gap-3">
                       {panel.skills.map((skill, sIdx) => (
                         <MagneticContainer key={sIdx}>
-                          <div className="px-5 py-3 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-md text-white/80 text-xs uppercase tracking-widest font-bold cursor-pointer hover:bg-white/10 hover:border-white/30 hover:text-white transition-all duration-300 shadow-[0_4px_24px_rgba(0,0,0,0.2)]">
+                          <div className="px-5 py-3 rounded-full border border-white/10 bg-[var(--background-elevated)] backdrop-blur-md text-white/80 text-xs uppercase tracking-widest font-bold cursor-pointer hover:bg-[var(--accent-soft)] hover:border-[var(--accent-primary)] hover:text-[var(--text-primary)] hover:shadow-[0_0_15px_var(--glow-soft)] transition-all duration-300 shadow-[0_4px_16px_rgba(0,0,0,0.5)]">
                             {skill}
                           </div>
                         </MagneticContainer>
@@ -357,10 +358,10 @@ export function TechStack() {
                   </div>
 
                   {/* Feature Visual/Abstract Card */}
-                  <div className="order-1 md:order-2 aspect-square md:aspect-auto md:h-[60vh] rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent backdrop-blur-2xl relative overflow-hidden pointer-events-none shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+                  <div className="order-1 md:order-2 aspect-square md:aspect-auto md:h-[60vh] rounded-3xl border border-[var(--border-medium)] bg-[var(--background-secondary)]/40 backdrop-blur-3xl relative overflow-hidden pointer-events-none shadow-[0_20px_60px_rgba(0,0,0,0.8),inset_0_1px_0_var(--border-medium),0_0_40px_var(--glow-soft)]">
                     {panel.visualCard}
                     {/* Base gradient overlay to ground the abstract art */}
-                    <div className="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-[#0B0C0F]/80 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-[var(--background-primary)]/80 to-transparent" />
                   </div>
 
                 </div>

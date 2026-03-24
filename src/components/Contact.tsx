@@ -73,9 +73,10 @@ export function Contact() {
 
   return (
     <section
+      data-cursor-theme="contact"
       id="contact"
       ref={containerRef}
-      className="relative min-h-[140vh] w-full bg-[#0A0A0A] overflow-hidden text-white flex flex-col justify-center py-24"
+      className="relative min-h-[140vh] w-full bg-[var(--background-primary)] overflow-hidden text-[var(--text-primary)] flex flex-col justify-center py-24"
     >
       {/* Background Soft Glow & Noise */}
       <div className="absolute inset-0 pointer-events-none">
@@ -105,9 +106,9 @@ export function Contact() {
               className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter leading-[1.05]"
               style={{ fontFamily: "var(--font-neue, var(--font-space-grotesk))" }}
             >
-              Let&apos;s build something that feels <span className="text-white/40 italic">impossible.</span>
+              Let&apos;s build something that feels <span className="text-[var(--text-muted)] italic">impossible.</span>
             </h2>
-            <p className="text-white/60 text-lg md:text-xl font-[450] max-w-md">
+            <p className="text-[var(--text-secondary)] text-lg md:text-xl font-[450] max-w-md">
               Whether it&apos;s a groundbreaking digital experience or an ambitious technical challenge,
               I&apos;m ready to collaborate. Let&apos;s make it reality.
             </p>
@@ -137,7 +138,7 @@ export function Contact() {
             transition={{ duration: 1, delay: staggerDelay, ease: [0.16, 1, 0.3, 1] }}
             className="relative lg:ml-auto w-full max-w-lg"
           >
-            <div className="relative w-full rounded-2xl bg-[#111] border border-white/10 backdrop-blur-xl shadow-2xl overflow-hidden p-[1px]">
+            <div className="relative w-full rounded-2xl bg-[var(--background-elevated)] border border-[var(--border-medium)] backdrop-blur-xl shadow-[0_30px_80px_rgba(0,0,0,0.9),inset_0_1px_0_var(--border-medium),0_0_50px_var(--glow-soft)] overflow-hidden p-[1px]">
 
               {/* Scanline Effect */}
               <motion.div
@@ -145,10 +146,10 @@ export function Contact() {
                 style={{ top: scanlineY }}
               />
 
-              <div className="bg-[#0A0A0A]/90 rounded-[15px] h-full w-full flex flex-col relative z-10">
+              <div className="bg-[var(--background-primary)]/90 rounded-[15px] h-full w-full flex flex-col relative z-10">
 
                 {/* Terminal Header */}
-                <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-white/[0.02]">
+                <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--border-medium)] bg-[var(--background-secondary)]/50">
                   <div className="flex items-center gap-2">
                     <div className="flex gap-1.5">
                       <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
@@ -159,13 +160,13 @@ export function Contact() {
                   </div>
 
                   {/* Availability Chip */}
-                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--background-elevated)] border border-[var(--border-soft)]">
                     <motion.div
-                      className="w-1.5 h-1.5 rounded-full bg-[#2DFF8A]"
+                      className="w-1.5 h-1.5 rounded-full bg-[var(--text-primary)]"
                       animate={{ opacity: [1, 0.4, 1] }}
                       transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                     />
-                    <span className="text-[0.65rem] font-mono tracking-wider text-white/70 uppercase">Status: Open</span>
+                    <span className="text-[0.65rem] font-mono tracking-wider text-[var(--accent-primary)] uppercase font-semibold">Status: Open</span>
                   </div>
                 </div>
 
@@ -196,10 +197,10 @@ export function Contact() {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full bg-transparent border-b border-white/10 py-3 text-white placeholder-transparent focus:outline-none focus:border-white/50 transition-colors peer"
+                        className="w-full bg-[var(--background-primary)]/50 border border-[var(--border-soft)] rounded-lg px-4 py-4 text-[var(--text-primary)] placeholder-transparent focus:outline-none focus:border-[var(--accent-primary)] focus:bg-[var(--background-secondary)] hover:border-[var(--border-medium)] hover:bg-[var(--background-secondary)] transition-all peer shadow-inner"
                         placeholder="Name"
                       />
-                      <label className="absolute left-0 top-3 text-white/30 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-white/70 peer-valid:-top-4 peer-valid:text-xs peer-valid:text-white/70">
+                      <label className="absolute left-4 top-4 text-[var(--text-muted)] text-sm transition-all pointer-events-none peer-focus:-top-3 peer-focus:left-2 peer-focus:text-[0.65rem] peer-focus:text-[var(--accent-primary)] peer-focus:bg-[var(--background-primary)] peer-focus:px-2 peer-focus:py-0.5 peer-focus:rounded-full peer-focus:border peer-focus:border-[var(--border-soft)] peer-valid:-top-3 peer-valid:left-2 peer-valid:text-[0.65rem] peer-valid:text-[var(--text-secondary)] peer-valid:bg-[var(--background-primary)] peer-valid:px-2 peer-valid:py-0.5 peer-valid:rounded-full peer-valid:border peer-valid:border-[var(--border-soft)]">
                         Name
                       </label>
                     </motion.div>
@@ -216,10 +217,10 @@ export function Contact() {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full bg-transparent border-b border-white/10 py-3 text-white placeholder-transparent focus:outline-none focus:border-white/50 transition-colors peer"
+                        className="w-full bg-[var(--background-primary)]/50 border border-[var(--border-soft)] rounded-lg px-4 py-4 text-[var(--text-primary)] placeholder-transparent focus:outline-none focus:border-[var(--accent-primary)] focus:bg-[var(--background-secondary)] hover:border-[var(--border-medium)] hover:bg-[var(--background-secondary)] transition-all peer shadow-inner"
                         placeholder="Email"
                       />
-                      <label className="absolute left-0 top-3 text-white/30 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-white/70 peer-valid:-top-4 peer-valid:text-xs peer-valid:text-white/70">
+                      <label className="absolute left-4 top-4 text-[var(--text-muted)] text-sm transition-all pointer-events-none peer-focus:-top-3 peer-focus:left-2 peer-focus:text-[0.65rem] peer-focus:text-[var(--accent-primary)] peer-focus:bg-[var(--background-primary)] peer-focus:px-2 peer-focus:py-0.5 peer-focus:rounded-full peer-focus:border peer-focus:border-[var(--border-soft)] peer-valid:-top-3 peer-valid:left-2 peer-valid:text-[0.65rem] peer-valid:text-[var(--text-secondary)] peer-valid:bg-[var(--background-primary)] peer-valid:px-2 peer-valid:py-0.5 peer-valid:rounded-full peer-valid:border peer-valid:border-[var(--border-soft)]">
                         Email Address
                       </label>
                     </motion.div>
@@ -236,10 +237,10 @@ export function Contact() {
                         rows={3}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full bg-transparent border-b border-white/10 py-3 text-white placeholder-transparent focus:outline-none focus:border-white/50 transition-colors peer resize-none"
+                        className="w-full bg-[var(--background-primary)]/50 border border-[var(--border-soft)] rounded-lg px-4 py-4 text-[var(--text-primary)] placeholder-transparent focus:outline-none focus:border-[var(--accent-primary)] focus:bg-[var(--background-secondary)] hover:border-[var(--border-medium)] hover:bg-[var(--background-secondary)] transition-all peer shadow-inner resize-none min-h-[120px]"
                         placeholder="Message"
                       />
-                      <label className="absolute left-0 top-3 text-white/30 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-white/70 peer-valid:-top-4 peer-valid:text-xs peer-valid:text-white/70">
+                      <label className="absolute left-4 top-4 text-[var(--text-muted)] text-sm transition-all pointer-events-none peer-focus:-top-3 peer-focus:left-2 peer-focus:text-[0.65rem] peer-focus:text-[var(--accent-primary)] peer-focus:bg-[var(--background-primary)] peer-focus:px-2 peer-focus:py-0.5 peer-focus:rounded-full peer-focus:border peer-focus:border-[var(--border-soft)] peer-valid:-top-3 peer-valid:left-2 peer-valid:text-[0.65rem] peer-valid:text-[var(--text-secondary)] peer-valid:bg-[var(--background-primary)] peer-valid:px-2 peer-valid:py-0.5 peer-valid:rounded-full peer-valid:border peer-valid:border-[var(--border-soft)]">
                         Message Data
                       </label>
                     </motion.div>
@@ -255,8 +256,8 @@ export function Contact() {
                       <button 
                         type="submit" 
                         disabled={status === 'loading'}
-                        className={`w-full sm:w-auto px-8 py-3.5 font-semibold rounded-lg transition-colors text-sm ${
-                          status === 'success' ? 'bg-green-500 text-white' : status === 'error' ? 'bg-red-500 text-white' : 'bg-white text-black hover:bg-white/90'
+                        className={`w-full sm:w-auto px-8 py-3.5 font-bold tracking-wide rounded-lg transition-all text-[0.85rem] uppercase relative overflow-hidden ${
+                          status === 'success' ? 'bg-[var(--accent-primary)] text-[var(--background-primary)]' : status === 'error' ? 'bg-[var(--background-elevated)] text-[var(--text-muted)] border border-[var(--border-medium)]' : 'bg-[var(--text-primary)] text-[var(--background-primary)] hover:bg-[var(--accent-primary)] hover:shadow-[0_0_20px_var(--glow-soft)]'
                         }`}
                       >
                         {status === 'loading' ? 'Transmitting...' : status === 'success' ? 'Transmission Sent' : status === 'error' ? 'Failed' : 'Transmit'}
@@ -274,7 +275,7 @@ export function Contact() {
                         onMouseLeave={handleMouseLeave}
                         animate={{ x: btnPos.x, y: btnPos.y }}
                         transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
-                        className="w-full sm:w-auto px-8 py-3.5 bg-transparent border border-white/20 text-white font-medium rounded-lg hover:bg-white/5 hover:border-white/40 transition-all text-sm flex items-center justify-center gap-2 group"
+                        className="w-full sm:w-auto px-8 py-3.5 bg-[var(--background-elevated)] border border-[var(--border-medium)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-primary)] hover:bg-[var(--accent-soft)] hover:shadow-[0_0_15px_var(--glow-soft)] font-medium tracking-wide rounded-lg transition-all text-[0.85rem] flex items-center justify-center gap-2 group shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
                       >
                         View My CV
                         <svg className="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">

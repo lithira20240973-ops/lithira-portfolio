@@ -14,7 +14,7 @@ export function Hero() {
   const textX = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
 
   return (
-    <div className="w-full h-screen flex items-center justify-center">
+    <div data-cursor-theme="home" className="w-full h-screen flex items-center justify-center">
       <div className="relative w-full h-full overflow-hidden bg-gray-100">
 
         {/* Background Image / Portrait with Parallax */}

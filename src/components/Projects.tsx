@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import { MetallicDust } from "./MetallicDust";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const PROJECTS = [
@@ -12,9 +13,9 @@ const PROJECTS = [
     year: "2025",
     sideLabel: "SMART MONITORING SYSTEM",
     tags: ["IoT", "Dashboard", "Monitoring", "Smart System"],
-    accent: "#00B4D8",
-    bg: "linear-gradient(145deg, #020c18 0%, #061a2e 50%, #03101e 100%)",
-    glow: "radial-gradient(ellipse 70% 55% at 50% 42%, rgba(0,180,216,0.22) 0%, transparent 100%)",
+    accent: "var(--text-primary)",
+    bg: "linear-gradient(145deg, var(--background-secondary) 0%, var(--background-elevated) 50%, var(--background-primary) 100%)",
+    glow: "radial-gradient(ellipse 70% 55% at 50% 42%, var(--glow-soft) 0%, transparent 100%)",
     images: [
       "/images/projects/aquaguard-1.png",
       "/images/projects/aquaguard-2.png",
@@ -27,9 +28,9 @@ const PROJECTS = [
     year: "2025",
     sideLabel: "DIGITAL HEALTHCARE PLATFORM",
     tags: ["Healthcare", "UI/UX", "Platform", "Service Design"],
-    accent: "#A8D8EA",
-    bg: "linear-gradient(145deg, #060910 0%, #0b1422 50%, #070a14 100%)",
-    glow: "radial-gradient(ellipse 70% 55% at 50% 42%, rgba(168,216,234,0.15) 0%, transparent 100%)",
+    accent: "var(--accent-primary)",
+    bg: "linear-gradient(145deg, var(--background-primary) 0%, var(--background-secondary) 50%, var(--background-primary) 100%)",
+    glow: "radial-gradient(ellipse 70% 55% at 50% 42%, var(--glow-soft) 0%, transparent 100%)",
     images: [
       "/images/projects/medihouse-1.png",
       "/images/projects/medihouse-2.png",
@@ -42,9 +43,9 @@ const PROJECTS = [
     year: "2025",
     sideLabel: "REAL ESTATE PLATFORM",
     tags: ["Real Estate", "Web App", "UX Design", "Listings"],
-    accent: "#C8AB8A",
-    bg: "linear-gradient(145deg, #0c0a08 0%, #1a1510 50%, #100d0a 100%)",
-    glow: "radial-gradient(ellipse 70% 55% at 50% 42%, rgba(200,171,138,0.16) 0%, transparent 100%)",
+    accent: "var(--accent-secondary)",
+    bg: "linear-gradient(145deg, var(--background-secondary) 0%, var(--background-elevated) 50%, var(--background-primary) 100%)",
+    glow: "radial-gradient(ellipse 70% 55% at 50% 42%, var(--glow-soft) 0%, transparent 100%)",
     images: [
       "/images/projects/estateapp-1.png",
       "/images/projects/estateapp-2.png",
@@ -75,7 +76,7 @@ const Placeholder = ({ project, index }: { project: Project; index: number }) =>
     <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 z-10">
       <div
         className="w-11 h-11 rounded-full border flex items-center justify-center"
-        style={{ borderColor: `${project.accent}50` }}
+        style={{ borderColor: `var(--border-medium)` }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={project.accent} strokeWidth="1.5" opacity={0.7}>
           <rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" />
@@ -83,11 +84,11 @@ const Placeholder = ({ project, index }: { project: Project; index: number }) =>
       </div>
       <p
         className="text-[0.58rem] tracking-[0.4em] uppercase font-medium"
-        style={{ color: `${project.accent}70` }}
+        style={{ color: `var(--text-secondary)` }}
       >
         {project.name} · Preview {index + 1}
       </p>
-      <p className="text-[0.5rem] tracking-[0.25em] uppercase text-white/40">
+      <p className="text-[0.5rem] tracking-[0.25em] uppercase text-[var(--text-muted)]">
         Project Assets In Production
       </p>
     </div>
@@ -106,27 +107,75 @@ const ProjectSlide = ({
   onPrev: () => void;
   onNext: () => void;
 }) => (
-  <div
-    className="absolute inset-0 flex flex-col overflow-hidden"
-    style={{ background: "radial-gradient(ellipse at 50% 20%, #161616 0%, #0a0a0a 70%)" }}
-  >
+  <div className="absolute inset-0 flex flex-col overflow-hidden bg-[#050505]">
+    
+    {/* --- LUXURY SHOWROOM BACKGROUND LAYERS --- */}
+    
+    {/* 1. Base Graphite/Metal Gradient */}
+    <div 
+      className="absolute inset-0 z-0 bg-gradient-to-br from-[var(--background-secondary)] via-[var(--background-primary)] to-[#030303] opacity-80"
+    />
+    
+    {/* 2. Metallic Grain Texture */}
+    <div
+      className="absolute inset-0 z-0 opacity-[0.025] mix-blend-overlay pointer-events-none"
+      style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        backgroundRepeat: 'repeat',
+      }}
+    />
+
+    {/* 3. Soft Diffused Spotlight / Radial Glow (Cool Silver) */}
+    <div 
+      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] w-[70vw] h-[70vh] rounded-full blur-[130px] opacity-40 mix-blend-screen pointer-events-none z-0"
+      style={{ background: "radial-gradient(ellipse at center, rgba(160, 175, 195, 0.1) 0%, transparent 70%)" }}
+    />
+
+    {/* 4. Sparse Metallic Micro-particles (masked from the center card) */}
+    <div 
+      className="absolute inset-0 z-0 opacity-40 pointer-events-none"
+      style={{
+        maskImage: "radial-gradient(ellipse 65% 70% at 50% 55%, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)",
+        WebkitMaskImage: "radial-gradient(ellipse 65% 70% at 50% 55%, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)",
+      }}
+    >
+       <MetallicDust />
+    </div>
+
+    {/* 5. Luminous Sweeps / Light Streaks (slowly animated) */}
+    <motion.div
+      className="absolute inset-0 z-0 opacity-15 pointer-events-none mix-blend-screen"
+      animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
+      transition={{ duration: 30, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
+      style={{
+        backgroundImage: "linear-gradient(110deg, transparent 15%, rgba(200, 215, 230, 0.4) 25%, transparent 35%, transparent 75%, rgba(200, 215, 230, 0.2) 80%, transparent 90%)",
+        backgroundSize: "200% 200%",
+      }}
+    />
+
+    {/* Atmospheric top silver haze */}
+    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[35vh] bg-[var(--text-secondary)]/5 blur-[120px] rounded-full pointer-events-none z-0" />
+    
+    {/* --- CONTENT (Elevated via z-10) --- */}
+
     {/* ① Section label */}
-    <div className="flex-none pt-8 md:pt-10 flex justify-center">
-      <span className="text-[0.58rem] tracking-[0.5em] text-white/22 uppercase font-medium select-none">
+    <div className="relative z-10 flex-none pt-8 md:pt-10 flex justify-center">
+      <span className="text-[0.58rem] tracking-[0.5em] text-[var(--text-muted)] uppercase font-medium select-none">
         My Work
       </span>
     </div>
 
     {/* ② Project title */}
-    <div className="flex-none mt-2 flex justify-center">
+    <div className="relative z-10 flex-none mt-2 flex justify-center">
       <AnimatePresence mode="wait">
         <motion.h3
           key={project.name}
-          className="text-[clamp(2rem,4.5vw,5.5rem)] font-light tracking-[-0.03em] text-white/90"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="text-[clamp(2.5rem,5vw,6.5rem)] font-light tracking-[-0.035em] text-[var(--text-primary)]"
+          initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -8, filter: "blur(4px)" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          style={{ textShadow: "0 10px 30px rgba(0,0,0,0.8)" }}
         >
           {project.name}
         </motion.h3>
@@ -134,20 +183,20 @@ const ProjectSlide = ({
     </div>
 
     {/* ③ Main row: left meta | hero frame | right meta */}
-    <div className="flex-1 flex items-center px-6 md:px-14 gap-4 md:gap-8 min-h-0 py-3">
+    <div className="relative z-10 flex-1 flex items-center px-6 md:px-14 gap-4 md:gap-8 min-h-0 py-3">
 
       {/* Left */}
-      <div className="flex-none w-24 md:w-32 flex flex-col items-start gap-3">
+      <div className="flex-none w-24 md:w-32 flex flex-col items-start gap-4 lg:gap-5 drop-shadow-md">
         <div>
-          <p className="text-[0.5rem] tracking-[0.35em] text-white/28 uppercase">Date</p>
-          <p className="text-sm text-white/60 font-light mt-0.5 tracking-wide">{project.year}</p>
+          <p className="text-[0.45rem] tracking-[0.4em] text-[var(--accent-primary)] uppercase font-semibold">Date</p>
+          <p className="text-[0.9rem] text-[var(--text-primary)] font-medium mt-1 tracking-wide">{project.year}</p>
         </div>
-        <div className="w-full h-px bg-white/10" />
+        <div className="w-8 h-px bg-[var(--border-medium)]" />
         <button
           onClick={onPrev}
-          className="w-9 h-9 rounded-full border border-white/14 flex items-center justify-center
-                     text-white/40 hover:text-white/80 hover:border-white/35
-                     transition-all duration-300 text-base leading-none"
+          className="w-10 h-10 rounded-full border border-[var(--border-medium)] bg-[var(--background-elevated)] flex items-center justify-center
+                     text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-primary)] hover:bg-[var(--accent-soft)] hover:shadow-[0_0_15px_var(--glow-soft)]
+                     transition-all duration-300 text-base leading-none shadow-[0_2px_10px_rgba(0,0,0,0.3)] mt-2"
           aria-label="Previous image"
         >
           ←
@@ -155,14 +204,17 @@ const ProjectSlide = ({
       </div>
 
       {/* Center hero frame */}
-      <div className="flex-1 flex items-center justify-center min-w-0">
+      <div className="flex-1 flex items-center justify-center min-w-0 relative">
+        {/* Under-card studio glow (tight and elegant) */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[105%] h-[110%] bg-[radial-gradient(ellipse_at_center,_rgba(160,170,185,0.06)_0%,_transparent_60%)] blur-[40px] pointer-events-none z-0" />
+        
         <div
-          className="relative w-full rounded-[16px] overflow-hidden"
+          className="relative w-full rounded-[16px] overflow-hidden bg-[#0A0B0D] z-10"
           style={{
-            maxWidth: "min(780px, 100%)",
-            height: "min(52vh, 440px)",
-            border: "1px solid rgba(255,255,255,0.07)",
-            boxShadow: `0 0 100px rgba(0,0,0,0.85), 0 0 50px ${project.accent}14, inset 0 0 0 1px rgba(255,255,255,0.04)`,
+            maxWidth: "min(840px, 100%)",
+            height: "min(56vh, 480px)",
+            border: "1px solid rgba(255,255,255,0.12)",
+            boxShadow: `0 30px 80px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.08)`,
           }}
         >
           <AnimatePresence mode="wait">
@@ -197,7 +249,7 @@ const ProjectSlide = ({
                 style={{
                   width: i === imgIdx ? "20px" : "6px",
                   height: "4px",
-                  background: i === imgIdx ? project.accent : "rgba(255,255,255,0.2)",
+                  background: i === imgIdx ? "var(--accent-primary)" : "var(--border-medium)",
                 }}
               />
             ))}
@@ -206,22 +258,22 @@ const ProjectSlide = ({
       </div>
 
       {/* Right */}
-      <div className="flex-none w-24 md:w-32 flex flex-col items-end gap-3">
+      <div className="flex-none w-24 md:w-32 flex flex-col items-end gap-4 lg:gap-5 drop-shadow-md">
         <div className="text-right">
-          <p className="text-[0.5rem] tracking-[0.35em] text-white/28 uppercase">Project</p>
+          <p className="text-[0.45rem] tracking-[0.4em] text-[var(--accent-primary)] uppercase font-semibold">Project</p>
           <p
-            className="text-[0.58rem] tracking-[0.1em] text-white/50 font-light mt-0.5 leading-snug"
+            className="text-[0.65rem] tracking-[0.15em] text-[var(--text-primary)] font-medium mt-1 leading-snug"
             style={{ maxWidth: "120px" }}
           >
             {project.sideLabel}
           </p>
         </div>
-        <div className="w-full h-px bg-white/10" />
+        <div className="w-8 h-px bg-[var(--border-medium)]" />
         <button
           onClick={onNext}
-          className="w-9 h-9 rounded-full border border-white/14 flex items-center justify-center
-                     text-white/40 hover:text-white/80 hover:border-white/35
-                     transition-all duration-300 text-base leading-none"
+          className="w-10 h-10 rounded-full border border-[var(--border-medium)] bg-[var(--background-elevated)] flex items-center justify-center
+                     text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-primary)] hover:bg-[var(--accent-soft)] hover:shadow-[0_0_15px_var(--glow-soft)]
+                     transition-all duration-300 text-base leading-none shadow-[0_2px_10px_rgba(0,0,0,0.3)] mt-2"
           aria-label="Next image"
         >
           →
@@ -230,14 +282,15 @@ const ProjectSlide = ({
     </div>
 
     {/* ④ Bottom tags */}
-    <div className="flex-none pb-8 md:pb-10 flex justify-center gap-2 flex-wrap px-6">
+    <div className="relative z-10 flex-none pb-8 md:pb-10 flex justify-center gap-2.5 flex-wrap px-6">
       {project.tags.map((tag) => (
         <span
           key={tag}
-          className="px-4 py-1.5 rounded-full border border-white/[0.09] bg-white/[0.03]
-                     text-[0.58rem] tracking-[0.18em] text-white/38 uppercase
-                     hover:border-white/20 hover:text-white/60
-                     transition-all duration-300 backdrop-blur-sm cursor-default"
+          className="px-4 py-1.5 rounded-full border border-[var(--border-medium)] bg-[var(--background-elevated)]
+                     text-[0.6rem] tracking-[0.2em] text-[var(--text-secondary)] uppercase font-medium
+                     hover:border-[var(--accent-primary)] hover:text-[var(--text-primary)] hover:bg-[var(--accent-soft)] hover:shadow-[0_0_12px_var(--glow-soft)]
+                     shadow-[0_4px_12px_rgba(0,0,0,0.4)]
+                     transition-all duration-300 backdrop-blur-md cursor-default"
         >
           {tag}
         </span>
@@ -273,9 +326,10 @@ export const Projects = () => {
 
   return (
     <section
+      data-cursor-theme="projects"
       ref={sectionRef}
       id="projects"
-      className="relative bg-[#0a0a0a]"
+      className="relative bg-[var(--background-primary)]"
       style={{ height: "300vh" }}
     >
       <div className="sticky top-0 h-screen overflow-hidden">

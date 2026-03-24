@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, IBM_Plex_Sans, Space_Grotesk, Dancing_Script } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import CursorTrail from "@/components/CursorTrail";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -58,6 +59,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${ibmPlexSans.variable} ${spaceGrotesk.variable} ${dancingScript.variable} font-sans antialiased bg-[#e2e2e2] text-black`}
       >
+        <CursorTrail />
         <SmoothScroll>
           {children}
         </SmoothScroll>

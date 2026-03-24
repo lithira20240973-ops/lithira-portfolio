@@ -25,7 +25,7 @@ const educationData: EducationEntry[] = [
     qualification: "BSc (Hons) Computer Science",
     expected: "Expected Graduation: Sep 2028",
     modules: ["Web Development", "Object-Oriented Programming", "Database Systems"],
-    color: "#FF4D2D",
+    color: "var(--accent-primary)",
   },
   {
     id: 2,
@@ -33,7 +33,7 @@ const educationData: EducationEntry[] = [
     label: "Jun 2024",
     institution: "IIT",
     qualification: "Foundation Certificate",
-    color: "#2D7FFF",
+    color: "var(--text-primary)",
   },
   {
     id: 3,
@@ -46,7 +46,7 @@ const educationData: EducationEntry[] = [
       { name: "Business", grade: "A" },
       { name: "Economics", grade: "A" }
     ],
-    color: "#2DFF8A",
+    color: "var(--text-secondary)",
   },
   {
     id: 4,
@@ -64,7 +64,7 @@ const educationData: EducationEntry[] = [
       { name: "Physics", grade: "B" },
       { name: "English Literature", grade: "B" },
     ],
-    color: "#FFC72D",
+    color: "var(--text-muted)",
   },
 ];
 
@@ -85,10 +85,10 @@ const AlevelAccordion = ({ subjects }: { subjects: { name: string; grade: string
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="mt-4 border-t border-[#111]/10 pt-4">
+    <div className="mt-4 border-t border-[var(--border-soft)] pt-4">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 text-[0.65rem] uppercase tracking-[0.2em] font-bold text-[#111]/40 hover:text-[#111] transition-colors group"
+        className="flex items-center gap-2 text-[0.65rem] uppercase tracking-[0.2em] font-bold text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors group"
       >
         Subjects & Results
         <motion.div animate={{ rotate: isOpen ? 180 : 0 }}>
@@ -108,10 +108,10 @@ const AlevelAccordion = ({ subjects }: { subjects: { name: string; grade: string
               {subjects.map((s, i) => (
                 <div 
                   key={i}
-                  className="flex justify-between items-center border-b border-[#111]/5 pb-1"
+                  className="flex justify-between items-center border-b border-[var(--border-soft)] pb-1"
                 >
-                  <span className="text-[0.75rem] font-medium text-[#111]/60">{s.name}</span>
-                  <span className="text-[0.75rem] font-bold text-[#111]">{s.grade}</span>
+                  <span className="text-[0.75rem] font-medium text-[var(--text-secondary)]">{s.name}</span>
+                  <span className="text-[0.75rem] font-bold text-[var(--text-primary)]">{s.grade}</span>
                 </div>
               ))}
             </div>
@@ -179,20 +179,20 @@ const EducationCard = ({ card, index, progress }: { card: EducationEntry, index:
         <div className="hidden md:block col-span-2" />
 
         <div className="col-span-12 md:col-span-7 flex flex-col justify-center">
-          <p className="text-[clamp(0.875rem,2vw,1.25rem)] text-[#111]/40 font-medium font-[var(--font-ibm-plex)] leading-tight mb-2">
+          <p className="text-[clamp(0.875rem,2vw,1.25rem)] text-[var(--text-muted)] font-medium font-[var(--font-ibm-plex)] leading-tight mb-2">
             {card.institution}
           </p>
           
-          <h3 className="text-[clamp(1.75rem,5vw,4.5rem)] font-bold tracking-tight leading-[1.05] text-[#111] font-[var(--font-inter)]">
+          <h3 className="text-[clamp(1.75rem,5vw,4.5rem)] font-bold tracking-tight leading-[1.05] text-[var(--text-primary)] font-[var(--font-inter)]">
             {card.qualification}
           </h3>
 
           <div className="mt-8 flex items-center gap-6">
-            <div className="bg-[#111]/5 px-4 py-2 rounded-full text-[0.8rem] font-bold tracking-tight text-[#111]/60 border border-[#111]/10">
+            <div className="bg-[var(--background-elevated)] px-5 py-2.5 rounded-full text-[0.85rem] font-bold tracking-widest text-[var(--accent-primary)] border border-[var(--border-medium)] shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
               {card.year}
             </div>
             {card.expected && (
-              <span className="text-[0.8rem] text-[#FF4D2D] font-bold tracking-tight">
+              <span className="text-[0.8rem] text-[var(--text-secondary)] font-bold tracking-tight">
                 // {card.expected}
               </span>
             )}
@@ -203,14 +203,14 @@ const EducationCard = ({ card, index, progress }: { card: EducationEntry, index:
           <div className="space-y-6">
             {card.modules && card.modules.length > 0 && (
               <div className="space-y-3">
-                <h4 className="text-[0.65rem] uppercase tracking-[0.25em] font-bold text-[#111]/30">
+                <h4 className="text-[0.65rem] uppercase tracking-[0.25em] font-bold text-[var(--text-muted)]">
                   Featured Modules
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {card.modules.map((m, i) => (
                     <span 
                       key={i} 
-                      className="text-[0.7rem] font-medium text-[#111]/50 bg-[#111]/5 px-3 py-1.5 rounded-full border border-[#111]/5"
+                      className="text-[0.7rem] font-medium text-[var(--text-primary)] bg-[var(--background-elevated)] px-3.5 py-1.5 rounded-full border border-[var(--border-medium)] shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
                     >
                       {m}
                     </span>
@@ -244,7 +244,7 @@ const TimelineItem = ({ item, index, progress }: { item: EducationEntry, index: 
   const dotColor = useTransform(
     progress, 
     [startBoundary - buffer, startBoundary + buffer, endBoundary - buffer, endBoundary + buffer], 
-    ["rgba(17,17,17,0.1)", item.color, item.color, "rgba(17,17,17,0.1)"]
+    ["transparent", item.color, item.color, "transparent"]
   );
   const labelOpacity = useTransform(
     progress, 
@@ -261,11 +261,11 @@ const TimelineItem = ({ item, index, progress }: { item: EducationEntry, index: 
     <div className="flex items-center gap-6">
       <div className="relative flex items-center justify-center">
         <motion.div 
-          className="w-1.5 h-1.5 rounded-full z-10"
+          className="w-2 h-2 rounded-full z-10 shadow-[0_0_10px_var(--glow-soft)]"
           style={{ backgroundColor: dotColor }}
         />
         <motion.div 
-          className="absolute w-4 h-4 rounded-full border border-[#111]/10"
+          className="absolute w-4 h-4 rounded-full border border-[var(--border-medium)]"
           style={{ opacity: isActiveProgress }}
           animate={{ scale: [1, 1.25, 1] }}
           transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
@@ -273,7 +273,7 @@ const TimelineItem = ({ item, index, progress }: { item: EducationEntry, index: 
       </div>
       <motion.span 
         style={{ opacity: labelOpacity, scale: labelScale }}
-        className="text-[0.65rem] uppercase tracking-[0.2em] font-bold text-[#111]"
+        className="text-[0.65rem] uppercase tracking-[0.2em] font-bold text-[var(--text-primary)]"
       >
         {item.label}
       </motion.span>
@@ -298,24 +298,28 @@ export function Education() {
   return (
     // FIX applied here: Remvoed overflow-hidden which broke the sticky positioning for 400vh
     <section 
+      data-cursor-theme="education"
       ref={containerRef} 
       id="education" 
-      className="relative bg-[#F2F2F0] text-[#111]" 
+      className="relative bg-[var(--background-secondary)] text-[var(--text-primary)]" 
       style={{ height: "400vh" }}
     >
       <GrainOverlay />
       
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-between py-16 px-8 md:px-16 lg:px-24 overflow-hidden">
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-between py-16 px-8 md:px-16 lg:px-24 overflow-hidden relative">
+        {/* Background distinction & atmospheric depth */}
+        <div className="absolute top-0 right-0 w-[60vw] h-[60vh] bg-[var(--accent-primary)]/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[40vw] h-[40vh] bg-[var(--accent-soft)] blur-[100px] rounded-full pointer-events-none" />
         
-        <div className="z-10 flex justify-between items-start">
+        <div className="z-10 flex justify-between items-start relative">
           <motion.span 
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-[#111]/20 text-[0.65rem] tracking-[0.4em] uppercase font-bold"
+            className="text-[var(--text-muted)] text-[0.65rem] tracking-[0.4em] uppercase font-bold"
           >
             // Education History
           </motion.span>
-          <div className="text-[#111]/10 text-[0.6rem] tracking-[0.2em] font-medium text-right uppercase hidden md:block">
+          <div className="text-[var(--text-muted)] opacity-60 text-[0.6rem] tracking-[0.2em] font-medium text-right uppercase hidden md:block">
             Curriculum Vitae <br/> Vol. 02 - Ref. 2025
           </div>
         </div>
@@ -347,16 +351,16 @@ export function Education() {
           </div>
 
           <div className="col-span-12 md:col-span-9 flex flex-col md:items-end gap-10">
-             <div className="w-full h-[1px] bg-[#111]/5 md:hidden" />
+             <div className="w-full h-[1px] bg-[var(--border-soft)] md:hidden" />
              <div className="flex flex-col md:items-end gap-5">
-                <h4 className="text-[0.6rem] uppercase tracking-[0.3em] font-bold text-[#111]/20">
+                <h4 className="text-[0.6rem] uppercase tracking-[0.3em] font-bold text-[var(--text-muted)]">
                   Core Competencies
                 </h4>
                 <div className="flex flex-wrap md:justify-end gap-2.5 max-w-2xl">
                   {softSkills.map((skill, i) => (
                     <span
                       key={i}
-                      className="px-4 py-2 rounded-full border border-[#111]/10 text-[0.75rem] font-bold tracking-tight text-[#111]/40"
+                      className="px-4 py-2 rounded-full border border-[var(--border-medium)] bg-[var(--background-elevated)] text-[0.75rem] font-bold tracking-tight text-[var(--text-primary)] shadow-[0_4px_12px_rgba(0,0,0,0.3)] backdrop-blur-sm"
                     >
                       {skill}
                     </span>
@@ -368,7 +372,7 @@ export function Education() {
 
       </div>
 
-      <div className="absolute left-8 md:left-16 lg:left-24 top-0 bottom-0 w-[1px] bg-[#111]/5 z-0" />
+      <div className="absolute left-8 md:left-16 lg:left-24 top-0 bottom-0 w-[1px] bg-[var(--border-soft)] z-0" />
     </section>
   );
 }

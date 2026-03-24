@@ -7,8 +7,22 @@
 }
 
 :root {
-  --background: #efefef;
-  --foreground: #111111;
+  /* Site-wide luxury monochrome theme tokens - Editorial + Atmospheric Steel */
+  --background-primary: #080808;
+  --background-secondary: #101114;
+  --background-elevated: #17191D;
+  
+  --text-primary: #F3F3F0;
+  --text-secondary: #A7AAB4;
+  --text-muted: #6F7480;
+  
+  --border-soft: rgba(255,255,255,0.09);
+  --border-medium: rgba(255,255,255,0.14);
+  
+  --accent-primary: #8FA3B8;
+  --accent-soft: rgba(143,163,184,0.16);
+  
+  --glow-soft: rgba(143,163,184,0.08);
 }
 
 body {

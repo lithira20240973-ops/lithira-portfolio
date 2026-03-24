@@ -21,8 +21,8 @@ const CARDS = [
   { id: 6, title: "Nightfall",        location: "City by Night", angle: 45,   videoSrc: "/videos/drone/drone7.mp4" },
 ];
 
-const CARD_BG = "rgba(15, 15, 20, 0.85)";
-const CARD_BORDER = "rgba(255, 255, 255, 0.08)";
+const CARD_BG = "var(--background-elevated)";
+const CARD_BORDER = "var(--border-medium)";
 
 // Geometry Constants
 const RX = 420; // Horizontal radius
@@ -80,7 +80,7 @@ function DroneCard({
         onClick={() => onSelect(card)}
       >
         <div
-          className="relative rounded-2xl overflow-hidden border backdrop-blur-md shadow-2xl"
+          className="relative rounded-2xl overflow-hidden border backdrop-blur-md shadow-[0_15px_40px_rgba(0,0,0,0.8)] group-hover:shadow-[0_20px_50px_var(--glow-soft)] transition-shadow duration-500"
           style={{
             width: "190px",
             height: "320px",
@@ -102,9 +102,9 @@ function DroneCard({
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/80 z-10" />
 
           {/* Play Button */}
-          <div className="absolute inset-0 flex items-center justify-center z-20">
-            <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/25 transition-all duration-500">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="white" className="ml-1">
+          <div className="absolute inset-0 flex items-center justify-center z-20 opacity-90 group-hover:opacity-100 transition-opacity duration-500">
+            <div className="w-14 h-14 rounded-full bg-[var(--background-elevated)]/60 backdrop-blur-xl border border-[var(--border-medium)] flex items-center justify-center group-hover:scale-110 group-hover:bg-[var(--accent-soft)] group-hover:border-[var(--accent-primary)] group-hover:shadow-[0_0_25px_var(--glow-soft)] transition-all duration-500 shadow-[0_8px_20px_rgba(0,0,0,0.5)]">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--text-primary)" stroke="var(--text-primary)" strokeWidth="1" className="ml-1 opacity-80 group-hover:opacity-100">
                 <polygon points="5,3 19,12 5,21" />
               </svg>
             </div>
@@ -197,7 +197,7 @@ export const Droneography = () => {
       <section
         ref={sectionRef}
         id="droneography"
-        className="relative bg-[#050508]"
+        className="relative bg-[var(--background-primary)]"
         style={{ height: "350vh" }}
       >
         <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
@@ -205,16 +205,16 @@ export const Droneography = () => {
           {/* ── Background ────────────────────────────────────────── */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
             {/* Base Gradient */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#0c0c1e_0%,#050508_70%)] opacity-60" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,var(--background-secondary)_0%,var(--background-primary)_70%)] opacity-80" />
             
-            {/* Subtle glow behind title */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] rounded-full" />
+            {/* Subtle glow behind title - atmospheric haze */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[var(--accent-primary)]/10 blur-[150px] rounded-full" />
 
             {/* Orbital Traces */}
-            <svg className="absolute inset-0 w-full h-full opacity-[0.035]" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
-              <ellipse cx="720" cy="450" rx={RX} ry={RY} fill="none" stroke="white" strokeWidth="0.5" strokeDasharray="4 20" />
-              <ellipse cx="720" cy="450" rx={RX * 0.7} ry={RY * 0.7} fill="none" stroke="white" strokeWidth="0.3" strokeDasharray="2 15" />
-              <circle cx="720" cy="450" r="1" fill="white" />
+            <svg className="absolute inset-0 w-full h-full opacity-[0.06]" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+              <ellipse cx="720" cy="450" rx={RX} ry={RY} fill="none" stroke="var(--text-primary)" strokeWidth="0.5" strokeDasharray="4 20" />
+              <ellipse cx="720" cy="450" rx={RX * 0.7} ry={RY * 0.7} fill="none" stroke="var(--text-primary)" strokeWidth="0.3" strokeDasharray="2 15" />
+              <circle cx="720" cy="450" r="1.5" fill="var(--accent-primary)" opacity="0.5" />
             </svg>
 
             {/* Film Grain */}
