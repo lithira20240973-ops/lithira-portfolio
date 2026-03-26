@@ -164,35 +164,35 @@ const EducationCard = ({ card, index, progress }: { card: EducationEntry, index:
 
   return (
     <motion.div
-      className="absolute inset-0 flex items-center justify-center"
+      className="absolute inset-0 flex items-center justify-center px-4"
       style={{ opacity, y, pointerEvents: pointerEvents as any }}
     >
-      <div className="grid grid-cols-12 gap-8 md:gap-16 w-full max-w-7xl mx-auto px-8 md:px-0">
-        <div className="hidden md:block col-span-2" />
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-16 w-full max-w-7xl mx-auto">
+        <div className="hidden md:block md:col-span-2" />
 
-        <div className="col-span-12 md:col-span-7 flex flex-col justify-center">
-          <p className="text-[clamp(0.875rem,2vw,1.25rem)] text-[var(--text-muted)] font-medium font-[var(--font-ibm-plex)] leading-tight mb-2">
+        <div className="col-span-1 md:col-span-7 flex flex-col justify-center">
+          <p className="text-[clamp(0.8rem,2vw,1.25rem)] text-[var(--text-muted)] font-medium leading-tight mb-2">
             {card.institution}
           </p>
 
-          <h3 className="text-[clamp(1.75rem,5vw,4.5rem)] font-bold tracking-tight leading-[1.05] text-[var(--text-primary)] font-[var(--font-inter)]">
+          <h3 className="text-[clamp(1.4rem,4vw,4.5rem)] font-bold tracking-tight leading-[1.05] text-[var(--text-primary)]">
             {card.qualification}
           </h3>
 
-          <div className="mt-8 flex items-center gap-6">
-            <div className="bg-[var(--background-elevated)] px-5 py-2.5 rounded-full text-[0.85rem] font-bold tracking-widest text-[var(--accent-primary)] border border-[var(--border-medium)] shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
+          <div className="mt-5 md:mt-8 flex items-center gap-4 flex-wrap">
+            <div className="bg-[var(--background-elevated)] px-4 py-2 rounded-full text-[0.8rem] font-bold tracking-widest text-[var(--accent-primary)] border border-[var(--border-medium)] shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
               {card.year}
             </div>
             {card.expected && (
-              <span className="text-[0.8rem] text-[var(--text-secondary)] font-bold tracking-tight">
+              <span className="text-[0.75rem] text-[var(--text-secondary)] font-bold tracking-tight">
                 // {card.expected}
               </span>
             )}
           </div>
         </div>
 
-        <div className="col-span-12 md:col-span-3 flex flex-col justify-center">
-          <div className="space-y-6">
+        <div className="col-span-1 md:col-span-3 flex flex-col justify-center">
+          <div className="space-y-4 md:space-y-6">
             {card.modules && card.modules.length > 0 && (
               <div className="space-y-3">
                 <h4 className="text-[0.65rem] uppercase tracking-[0.25em] font-bold text-[var(--text-muted)]">
@@ -202,7 +202,7 @@ const EducationCard = ({ card, index, progress }: { card: EducationEntry, index:
                   {card.modules.map((m, i) => (
                     <span
                       key={i}
-                      className="text-[0.7rem] font-medium text-[var(--text-primary)] bg-[var(--background-elevated)] px-3.5 py-1.5 rounded-full border border-[var(--border-medium)] shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
+                      className="text-[0.7rem] font-medium text-[var(--text-primary)] bg-[var(--background-elevated)] px-3 py-1.5 rounded-full border border-[var(--border-medium)] shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
                     >
                       {m}
                     </span>
@@ -337,7 +337,7 @@ export function Education() {
 
         <div className="grid grid-cols-12 gap-8 items-end z-10">
 
-          <div className="col-span-12 md:col-span-3 h-full flex items-end pb-2">
+          <div className="hidden md:flex col-span-3 h-full items-end pb-2">
             <div className="flex flex-col gap-8">
               {educationData.map((item, i) => (
                 <TimelineItem

@@ -291,8 +291,33 @@ export function TechStack() {
       id="tech-stack"
       ref={containerRef}
       className="relative bg-[var(--background-primary)] text-[var(--text-primary)]"
-      style={{ height: "400vh", fontFamily: "var(--font-space-grotesk), sans-serif" }}
+      style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
     >
+      {/* ── Mobile: simple vertical stack ───────────────────────────── */}
+      <div className="md:hidden flex flex-col px-5 py-16 gap-16">
+        <h2 className="text-[2.5rem] font-bold tracking-tighter leading-none text-white/90">
+          My Stack, <span className="text-white/40 font-normal">My Playground.</span>
+        </h2>
+        {STACK_DATA.map((panel) => (
+          <div key={panel.id} className="flex flex-col gap-6">
+            <div className="aspect-square rounded-2xl border border-[var(--border-medium)] bg-[var(--background-secondary)]/40 backdrop-blur-xl relative overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.6)]">
+              {panel.visualCard}
+            </div>
+            <h3 className="text-2xl font-bold tracking-tighter">{panel.title}</h3>
+            <p className="text-white/50 text-sm font-light leading-relaxed">{panel.description}</p>
+            <div className="flex flex-wrap gap-2">
+              {panel.skills.map((skill, i) => (
+                <div key={i} className="px-4 py-2 rounded-full border border-white/10 bg-[var(--background-elevated)] text-white/80 text-[0.65rem] uppercase tracking-widest font-bold">
+                  {skill}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Desktop: horizontal scroll track (md+) ────────────────── */}
+      <div className="hidden md:block" style={{ height: "400vh" }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col">
         <NoiseOverlay />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_150%,var(--background-secondary)_0%,var(--background-primary)_70%)] opacity-80 pointer-events-none z-0" />
@@ -385,7 +410,8 @@ export function TechStack() {
             <ArrowUpRight size={20} />
           </a>
         </motion.div>
-      </div>
+      </div>{/* end desktop sticky wrapper */}
+      </div>{/* end desktop height block */}
     </section>
   );
 }

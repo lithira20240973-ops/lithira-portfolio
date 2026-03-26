@@ -91,8 +91,8 @@ export function Contact() {
         </div>
       </div>
 
-      <div className="container mx-auto max-w-7xl px-8 md:px-12 relative z-10 sticky top-[20vh]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+      <div className="container mx-auto max-w-7xl px-5 md:px-8 lg:px-12 relative z-10 sticky top-[20vh]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
 
           {/* Left: Oversized Headline */}
           <motion.div
@@ -103,7 +103,7 @@ export function Contact() {
             className="flex flex-col gap-6"
           >
             <h2
-              className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter leading-[1.05]"
+              className="text-[clamp(2.5rem,8vw,5.5rem)] font-bold tracking-tighter leading-[1.05]"
               style={{ fontFamily: "var(--font-neue, var(--font-space-grotesk))" }}
             >
               Let&apos;s build something that feels <span className="text-[var(--text-muted)] italic">impossible.</span>
@@ -171,7 +171,7 @@ export function Contact() {
                 </div>
 
                 {/* Terminal Body (Form) */}
-                <div className="p-8 lg:p-10 flex flex-col gap-6">
+                <div className="p-5 md:p-8 lg:p-10 flex flex-col gap-6">
 
                   {/* Blinking Cursor Intro */}
                   <div className="flex items-center gap-2 font-mono text-sm text-white/50 mb-4">

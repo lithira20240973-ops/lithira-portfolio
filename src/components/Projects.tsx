@@ -164,8 +164,8 @@ const ProjectSlide = ({
     {/* ③ Main row: left meta | hero frame | right meta */}
     <div className="relative z-10 flex-1 flex items-center px-6 md:px-14 gap-4 md:gap-8 min-h-0 py-3">
 
-      {/* Left */}
-      <div className="flex-none w-24 md:w-32 flex flex-col items-start gap-4 lg:gap-5 drop-shadow-md">
+      {/* Left meta — hidden on mobile */}
+      <div className="hidden md:flex flex-none w-24 md:w-32 flex-col items-start gap-4 lg:gap-5 drop-shadow-md">
         <div>
           <p className="text-[0.45rem] tracking-[0.4em] text-[var(--accent-primary)] uppercase font-semibold">Date</p>
           <p className="text-[0.9rem] text-[var(--text-primary)] font-medium mt-1 tracking-wide">{project.year}</p>
@@ -191,7 +191,7 @@ const ProjectSlide = ({
           className="relative w-full rounded-[16px] overflow-hidden bg-[#0A0B0D] z-10"
           style={{
             maxWidth: "min(840px, 100%)",
-            height: "min(56vh, 480px)",
+            height: "min(50vh, 420px)",
             border: "1px solid rgba(255,255,255,0.12)",
             boxShadow: `0 30px 80px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.08)`,
           }}
@@ -236,8 +236,8 @@ const ProjectSlide = ({
         </div>
       </div>
 
-      {/* Right */}
-      <div className="flex-none w-24 md:w-32 flex flex-col items-end gap-4 lg:gap-5 drop-shadow-md">
+      {/* Right meta — hidden on mobile */}
+      <div className="hidden md:flex flex-none w-24 md:w-32 flex-col items-end gap-4 lg:gap-5 drop-shadow-md">
         <div className="text-right">
           <p className="text-[0.45rem] tracking-[0.4em] text-[var(--accent-primary)] uppercase font-semibold">Project</p>
           <p
@@ -260,22 +260,44 @@ const ProjectSlide = ({
       </div>
     </div>
 
-    {/* ④ Bottom tags */}
-    <div className="relative z-10 flex-none pb-8 md:pb-10 flex justify-center gap-2.5 flex-wrap px-6">
-      {project.tags.map((tag) => (
-        <span
-          key={tag}
-          className="px-4 py-1.5 rounded-full border border-[var(--border-medium)] bg-[var(--background-elevated)]
-                     text-[0.6rem] tracking-[0.2em] text-[var(--text-secondary)] uppercase font-medium
-                     hover:border-[var(--accent-primary)] hover:text-[var(--text-primary)] hover:bg-[var(--accent-soft)] hover:shadow-[0_0_12px_var(--glow-soft)]
-                     shadow-[0_4px_12px_rgba(0,0,0,0.4)]
-                     transition-all duration-300 backdrop-blur-md cursor-default"
+    {/* ④ Bottom tags + mobile arrow row */}
+    <div className="relative z-10 flex-none pb-6 md:pb-10 flex flex-col items-center gap-3 px-4 md:px-6">
+      {/* Mobile prev/next arrows */}
+      <div className="flex md:hidden items-center gap-4 w-full justify-between mb-1">
+        <button
+          onClick={onPrev}
+          className="flex-1 h-10 rounded-full border border-[var(--border-medium)] bg-[var(--background-elevated)] flex items-center justify-center
+                     text-[var(--text-secondary)] text-sm transition-all duration-300"
+          aria-label="Previous image"
         >
-          {tag}
-        </span>
-      ))}
+          &larr; Prev
+        </button>
+        <span className="text-[0.6rem] tracking-widest text-[var(--text-muted)] uppercase whitespace-nowrap">{project.year}</span>
+        <button
+          onClick={onNext}
+          className="flex-1 h-10 rounded-full border border-[var(--border-medium)] bg-[var(--background-elevated)] flex items-center justify-center
+                     text-[var(--text-secondary)] text-sm transition-all duration-300"
+          aria-label="Next image"
+        >
+          Next &rarr;
+        </button>
+      </div>
+      {/* Tags */}
+      <div className="flex flex-wrap justify-center gap-2 md:gap-2.5">
+        {project.tags.map((tag) => (
+          <span
+            key={tag}
+            className="px-3 md:px-4 py-1 md:py-1.5 rounded-full border border-[var(--border-medium)] bg-[var(--background-elevated)]
+                       text-[0.55rem] md:text-[0.6rem] tracking-[0.2em] text-[var(--text-secondary)] uppercase font-medium
+                       hover:border-[var(--accent-primary)] hover:text-[var(--text-primary)] hover:bg-[var(--accent-soft)]
+                       shadow-[0_4px_12px_rgba(0,0,0,0.4)] transition-all duration-300 backdrop-blur-md cursor-default"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
     </div>
-  </div>
+    </div>
 );
 
 // ─── Main exported component ──────────────────────────────────────────────────

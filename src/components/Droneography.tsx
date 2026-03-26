@@ -277,8 +277,8 @@ export const Droneography = () => {
             </motion.p>
           </motion.div>
 
-          {/* ── Orbital Card Field ────────────────────────────────── */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          {/* ── Orbital Card Field — desktop only ────────────────── */}
+          <div className="hidden md:flex absolute inset-0 items-center justify-center pointer-events-none">
             {/* Center Axis Nudge */}
             <div className="relative" style={{ width: "1px", height: "1px", marginTop: "20px" }}>
               <div className="pointer-events-auto">
@@ -292,6 +292,29 @@ export const Droneography = () => {
                 ))}
               </div>
             </div>
+          </div>
+
+          {/* ── Mobile horizontal card scroll ─────────────────────── */}
+          <div className="md:hidden absolute inset-x-0 bottom-20 flex gap-4 overflow-x-auto px-6 pb-2 pointer-events-auto snap-x snap-mandatory"
+               style={{ scrollbarWidth: "none" }}>
+            {CARDS.map((card) => (
+              <div
+                key={card.id}
+                className="flex-none snap-center rounded-2xl overflow-hidden border border-white/10 bg-[var(--background-elevated)] shadow-[0_10px_30px_rgba(0,0,0,0.7)] cursor-pointer"
+                style={{ width: "160px", height: "260px" }}
+                onClick={() => setSelected(card)}
+              >
+                <video
+                  src={card.videoSrc}
+                  autoPlay muted loop playsInline
+                  className="w-full h-full object-cover opacity-80"
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
+                  <p className="text-white text-[0.65rem] font-medium tracking-tight">{card.title}</p>
+                  <p className="text-white/40 text-[0.5rem] tracking-widest uppercase">{card.location}</p>
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* ── Scroll Hint ───────────────────────────────────────── */}
