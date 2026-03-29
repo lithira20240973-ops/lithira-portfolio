@@ -28,8 +28,8 @@ const CARD_BORDER = "var(--border-medium)";
 // Geometry Constants
 const RX = 420; // Horizontal radius
 const RY = 240; // Vertical radius
-const SPIRAL_ROT = Math.PI * 2.2; // How much the orbit rotates over the scroll distance
-const VERTICAL_DRIFT = 800; // How much the cards rise upward
+const SPIRAL_ROT = Math.PI * 1.8; // How much the orbit rotates over the scroll distance
+const VERTICAL_DRIFT = 600; // How much the cards rise upward
 
 // ─── Single Drone Card ────────────────────────────────────────────────────────
 function DroneCard({
@@ -212,7 +212,7 @@ export const Droneography = () => {
         ref={sectionRef}
         id="droneography"
         className="relative bg-[#020305]"
-        style={{ height: "350vh" }}
+        style={{ height: "200vh" }}
         onMouseMove={handleMouseMove}
       >
         <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">

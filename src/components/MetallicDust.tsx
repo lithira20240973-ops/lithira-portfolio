@@ -41,8 +41,8 @@ export const MetallicDust = ({ density = "normal" }: { density?: "normal" | "spa
     canvas.height = height;
 
     // Adjust density based on prop
-    const areaDivider = density === "sparse" ? 18000 : 4500;
-    const maxParticles = density === "sparse" ? 80 : 350;
+    const areaDivider = density === "sparse" ? 25000 : 8000;
+    const maxParticles = density === "sparse" ? 50 : 100;
     const particleCount = Math.min(Math.floor((width * height) / areaDivider), maxParticles);
     const particles: Particle[] = [];
 
@@ -131,29 +131,11 @@ export const MetallicDust = ({ density = "normal" }: { density?: "normal" | "spa
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
 
-        // Calculate dynamic opacity based on shimmer
-        const shimmerMod = Math.sin(p.shimmerPhase); // -1 to 1
-        const shimmerOpacity = shimmerMod > 0.8 ? 0.3 + (shimmerMod - 0.8) * 2 : 0;
-
-        ctx.fillStyle = p.color;
-
-        // Closest particles have slight blur/glow representing out-of-focus dust or specular highlight
-        if (p.z < 2.5 && shimmerMod > 0.4) {
-          ctx.shadowBlur = Math.max(2, 6 * shimmerMod);
-          ctx.shadowColor = "rgba(255, 255, 255, 0.8)";
-        } else {
-          ctx.shadowBlur = 0;
-        }
-
+        // Shimmer via opacity only — no shadowBlur (avoids expensive GPU buffer flush)
+        const shimmerMod = Math.sin(p.shimmerPhase);
+        const alpha = shimmerMod > 0.8 ? 0.7 + (shimmerMod - 0.8) * 1.5 : 0.4;
+        ctx.fillStyle = p.color.replace(/[\.\d]+(?=\))/, alpha.toFixed(2));
         ctx.fill();
-
-        // Extra center white core when glimmering hard
-        if (shimmerMod > 0.85) {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius * 0.6, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255, 255, 255, ${(shimmerMod - 0.85) * 10})`;
-          ctx.fill();
-        }
       });
 
       animationFrameId = requestAnimationFrame(render);

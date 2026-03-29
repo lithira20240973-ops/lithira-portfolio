@@ -21,6 +21,32 @@ const segments = [
   { t: "visual storytelling.", h: true, br: false },
 ] as const;
 
+// Safe sub-component for animated segments
+function AnimatedSegment({
+  seg,
+  index,
+  total,
+  smooth,
+}: {
+  seg: typeof segments[number];
+  index: number;
+  total: number;
+  smooth: any;
+}) {
+  const start = 0.18 + (index / total) * 0.52;
+  const color = useTransform(smooth, [start, start + 0.08], [
+    "var(--text-muted)",
+    seg.h ? "var(--text-primary)" : "var(--text-secondary)",
+  ]);
+
+  return (
+    <>
+      <motion.span style={{ color }}>{seg.t}</motion.span>
+      {seg.br && <br />}
+    </>
+  );
+}
+
 export const About = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -30,13 +56,6 @@ export const About = () => {
   });
 
   const smooth = useSpring(scrollYProgress, { stiffness: 80, damping: 25, restDelta: 0.001 });
-
-  // Pre-compute all useTransform calls (constant length array = safe)
-  const colors = segments.map((seg, i) => {
-    const start = 0.18 + (i / segments.length) * 0.52;
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    return useTransform(smooth, [start, start + 0.08], ["var(--text-muted)", seg.h ? "var(--text-primary)" : "var(--text-secondary)"]);
-  });
 
   // Fade out dust particles as we scroll down to transition
   const dustOpacity = useTransform(smooth, [0.45, 0.75], [1, 0]);
@@ -83,10 +102,7 @@ export const About = () => {
               transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
             >
               {segments.map((seg, i) => (
-                <span key={i}>
-                  <motion.span style={{ color: colors[i] }}>{seg.t}</motion.span>
-                  {seg.br && <br />}
-                </span>
+                <AnimatedSegment key={i} seg={seg} index={i} total={segments.length} smooth={smooth} />
               ))}
             </motion.h2>
           </div>

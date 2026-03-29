@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
@@ -88,21 +88,45 @@ const AnimatedTerminal = () => (
   </div>
 );
 
-const WaveformVisual = () => (
-  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-    <div className="flex items-center gap-1 h-32 opacity-30 group-hover:opacity-100 transition-opacity duration-1000">
-      {Array.from({ length: 40 }).map((_, i) => (
-        <motion.div
-          key={i}
-          className="w-1 bg-[var(--accent-primary)] shadow-[0_0_10px_var(--glow-soft)] rounded-full"
-          initial={{ height: 4 }}
-          animate={{ height: ["4px", `${Math.random() * 100 + 10}px`, "4px"] }}
-          transition={{ repeat: Infinity, duration: Math.random() * 1 + 0.5, ease: "easeInOut" }}
-        />
-      ))}
+const WaveformVisual = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    const BARS = 40;
+    const phases = Array.from({ length: BARS }, () => Math.random() * Math.PI * 2);
+    const speeds = Array.from({ length: BARS }, () => 0.025 + Math.random() * 0.04);
+    let raf: number;
+    let t = 0;
+    const draw = () => {
+      const W = canvas.width;
+      const H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+      const barW = W / (BARS * 2 - 1);
+      for (let i = 0; i < BARS; i++) {
+        const h = 12 + Math.abs(Math.sin(t * speeds[i] + phases[i])) * (H * 0.7);
+        const x = i * (barW + barW);
+        ctx.fillStyle = "rgba(200, 220, 240, 0.70)";
+        ctx.beginPath();
+        ctx.roundRect(x, (H - h) / 2, barW, h, barW / 2);
+        ctx.fill();
+      }
+      t++;
+      raf = requestAnimationFrame(draw);
+    };
+    draw();
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  return (
+    <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30 group-hover:opacity-100 transition-opacity duration-1000">
+      <canvas ref={canvasRef} className="w-full h-32" />
     </div>
-  </div>
-);
+  );
+};
 
 const TopoMapVisual = () => (
   <div className="absolute inset-0 opacity-20 group-hover:opacity-50 transition-opacity duration-1000 flex items-center justify-center overflow-hidden">
@@ -269,6 +293,62 @@ const STACK_DATA = [
   }
 ];
 
+// --- Sub-component for individual panels to safely use hooks ---
+function TechPanel({
+  panel,
+  idx,
+  smoothProgress,
+}: {
+  panel: typeof STACK_DATA[number];
+  idx: number;
+  smoothProgress: any;
+}) {
+  const parallaxX = useTransform(
+    smoothProgress,
+    [idx * 0.25 - 0.25, idx * 0.25 + 0.25],
+    ["-10%", "10%"]
+  );
+
+  return (
+    <div className="relative w-screen h-full flex items-center justify-center p-8 md:p-24 overflow-hidden group">
+      {/* Background Parallax */}
+      <motion.div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{ x: parallaxX }}
+      >
+        {panel.visualBg}
+      </motion.div>
+
+      <div className="z-10 w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        {/* Text Content */}
+        <div className="order-2 md:order-1 outline-none pointer-events-auto">
+          <h3 className="text-4xl md:text-7xl font-bold tracking-tighter mb-4">{panel.title}</h3>
+          <p className="text-white/50 text-sm md:text-base mb-12 font-[450] tracking-wide max-w-sm">
+            {panel.description}
+          </p>
+
+          <div className="flex flex-wrap gap-3">
+            {panel.skills.map((skill, sIdx) => (
+              <MagneticContainer key={sIdx}>
+                <div className="px-5 py-3 rounded-full border border-white/10 bg-[var(--background-elevated)] backdrop-blur-md text-white/80 text-xs uppercase tracking-widest font-bold cursor-pointer hover:bg-[var(--accent-soft)] hover:border-[var(--accent-primary)] hover:text-[var(--text-primary)] hover:shadow-[0_0_15px_var(--glow-soft)] transition-all duration-300 shadow-[0_4px_16px_rgba(0,0,0,0.5)]">
+                  {skill}
+                </div>
+              </MagneticContainer>
+            ))}
+          </div>
+        </div>
+
+        {/* Feature Visual/Abstract Card */}
+        <div className="order-1 md:order-2 aspect-square md:aspect-auto md:h-[60vh] rounded-3xl border border-[var(--border-medium)] bg-[var(--background-secondary)]/40 backdrop-blur-3xl relative overflow-hidden pointer-events-none shadow-[0_20px_60px_rgba(0,0,0,0.8),inset_0_1px_0_var(--border-medium),0_0_40px_var(--glow-soft)]">
+          {panel.visualCard}
+          {/* Base gradient overlay to ground the abstract art */}
+          <div className="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-[var(--background-primary)]/80 to-transparent" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function TechStack() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -343,57 +423,11 @@ export function TechStack() {
           className="flex h-full w-[400vw] z-10"
           style={{ x: xTransform }}
         >
-          {STACK_DATA.map((panel, idx) => {
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            const parallaxX = useTransform(
-              smoothProgress,
-              [idx * 0.25 - 0.25, idx * 0.25 + 0.25],
-              ["-10%", "10%"]
-            );
-
-            return (
-              <div key={panel.id} className="relative w-screen h-full flex items-center justify-center p-8 md:p-24 overflow-hidden group">
-
-                {/* Background Parallax */}
-                <motion.div
-                  className="absolute inset-0 z-0 pointer-events-none"
-                  style={{ x: parallaxX }}
-                >
-                  {panel.visualBg}
-                </motion.div>
-
-                <div className="z-10 w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-
-                  {/* Text Content */}
-                  <div className="order-2 md:order-1 outline-none pointer-events-auto">
-                    <h3 className="text-4xl md:text-7xl font-bold tracking-tighter mb-4">{panel.title}</h3>
-                    <p className="text-white/50 text-sm md:text-base mb-12 font-[450] tracking-wide max-w-sm">
-                      {panel.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-3">
-                      {panel.skills.map((skill, sIdx) => (
-                        <MagneticContainer key={sIdx}>
-                          <div className="px-5 py-3 rounded-full border border-white/10 bg-[var(--background-elevated)] backdrop-blur-md text-white/80 text-xs uppercase tracking-widest font-bold cursor-pointer hover:bg-[var(--accent-soft)] hover:border-[var(--accent-primary)] hover:text-[var(--text-primary)] hover:shadow-[0_0_15px_var(--glow-soft)] transition-all duration-300 shadow-[0_4px_16px_rgba(0,0,0,0.5)]">
-                            {skill}
-                          </div>
-                        </MagneticContainer>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Feature Visual/Abstract Card */}
-                  <div className="order-1 md:order-2 aspect-square md:aspect-auto md:h-[60vh] rounded-3xl border border-[var(--border-medium)] bg-[var(--background-secondary)]/40 backdrop-blur-3xl relative overflow-hidden pointer-events-none shadow-[0_20px_60px_rgba(0,0,0,0.8),inset_0_1px_0_var(--border-medium),0_0_40px_var(--glow-soft)]">
-                    {panel.visualCard}
-                    {/* Base gradient overlay to ground the abstract art */}
-                    <div className="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-[var(--background-primary)]/80 to-transparent" />
-                  </div>
-
-                </div>
-              </div>
-            );
-          })}
+          {STACK_DATA.map((panel, idx) => (
+            <TechPanel key={panel.id} panel={panel} idx={idx} smoothProgress={smoothProgress} />
+          ))}
         </motion.div>
+
 
         {/* CTA Footer */}
         <motion.div
