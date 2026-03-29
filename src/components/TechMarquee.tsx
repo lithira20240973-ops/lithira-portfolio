@@ -13,6 +13,8 @@ const TECH_ITEMS = [
   "CSS",
   "Framer Motion",
   "Tailwind CSS",
+  "Three.js",
+  "GSAP",
   "Premiere Pro",
   "DaVinci Resolve"
 ];
